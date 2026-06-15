@@ -215,24 +215,17 @@ a {
 
 .bottom-cards {
     display: flex;
-
     justify-content: center;
-
+    align-items: stretch;
     gap: 30px;
-
     flex-wrap: wrap;
-
-    max-width: 800px;
-
-    margin: 30px auto 0;
+    max-width: 850px;
+    margin: 50px auto 0;
 }
 
 .bottom-cards .card {
-    flex: 1;
-
-    min-width: 280px;
-
-    max-width: 380px;
+    flex: 0 1 380px;
+    width: 380px;
 }
 
 /* ==========================
