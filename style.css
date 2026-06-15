@@ -1,13 +1,9 @@
 ```css
-/* ==========================
-   Général
-========================== */
-
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #0a1a33;
-    color: #ffffff;
+    background-color: #081b3a;
+    color: white;
     line-height: 1.7;
 }
 
@@ -15,234 +11,186 @@ body {
     box-sizing: border-box;
 }
 
-a {
-    color: #d4a64a;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-/* ==========================
-   Bannière
-========================== */
+/* Bannière */
 
 .hero-img {
     width: 100%;
     display: block;
 }
 
-/* ==========================
-   Sections
-========================== */
+/* Sections */
 
 .section {
     max-width: 1200px;
     margin: auto;
-    padding: 70px 25px;
+    padding: 80px 30px;
 }
 
 .section h2 {
     text-align: center;
-    font-size: 34px;
-    margin-bottom: 45px;
-    color: #ffffff;
+    font-size: 38px;
+    margin-bottom: 50px;
     position: relative;
 }
 
 .section h2::after {
-    content: '';
+    content: "";
     display: block;
     width: 80px;
     height: 3px;
-    background: #d4a64a;
-    margin: 15px auto 0;
+    background-color: #d4a64a;
+    margin: 20px auto 0;
 }
 
 .section p {
-    font-size: 17px;
-    margin-bottom: 20px;
+    font-size: 18px;
+    line-height: 1.8;
 }
 
-/* ==========================
-   Grilles
-========================== */
+/* Cartes */
 
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
 }
 
-/* ==========================
-   Cartes principales
-========================== */
-
 .card {
-    background-color: #13284d;
-    padding: 30px;
-    border-radius: 15px;
+    background: #13284d;
+    border-radius: 18px;
+    padding: 35px;
+    width: 350px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
     transition: all 0.3s ease;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.20);
-    border-top: 4px solid transparent;
 }
 
 .card:hover {
-    transform: translateY(-6px);
-    border-top: 4px solid #d4a64a;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+    transform: translateY(-8px);
 }
 
 .card h3 {
     color: #d4a64a;
+    font-size: 28px;
     margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 22px;
+    margin-bottom: 25px;
+    line-height: 1.4;
 }
 
 .card p {
-    margin-bottom: 0;
+    font-size: 17px;
+    color: #ffffff;
 }
 
-/* ==========================
-   Impacts clients
-========================== */
+/* Résultats clients */
 
 .impact-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    margin-top: 50px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 40px;
+    margin-top: 60px;
 }
 
 .impact-item {
     text-align: center;
-    padding: 25px 15px;
 }
 
 .impact-number {
     display: block;
-    font-size: 68px;
+    font-size: 72px;
     font-weight: 700;
     color: #d4a64a;
-    line-height: 1;
     margin-bottom: 20px;
+    line-height: 1;
 }
 
 .impact-title {
     display: block;
-    font-size: 22px;
-    font-weight: 600;
-    color: #ffffff;
-    margin-bottom: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: white;
 }
 
 .impact-item p {
-    font-size: 15px;
-    color: #c7d0df;
-    margin: 0;
+    color: #d0d9e8;
+    font-size: 16px;
 }
 
 .impact-note {
     text-align: center;
     margin-top: 50px;
-    color: #9aa6bc;
-    font-size: 14px;
+    color: #b8c3d6;
+    font-style: italic;
 }
 
-/* ==========================
-   Contact
-========================== */
+/* Contact */
 
 .contact {
     text-align: center;
 }
 
-.contact p {
-    margin-bottom: 12px;
-}
-
 .contact a {
     display: inline-block;
-    margin-top: 15px;
-    background-color: #0077b5;
-    color: white;
-    padding: 12px 24px;
+    background: #d4a64a;
+    color: #081b3a;
+    padding: 15px 30px;
     border-radius: 8px;
     font-weight: bold;
-    transition: all 0.3s ease;
+    text-decoration: none;
+    margin-top: 20px;
+    transition: 0.3s;
 }
 
 .contact a:hover {
-    background-color: #005885;
-    transform: translateY(-2px);
-    text-decoration: none;
+    transform: translateY(-3px);
 }
 
 .qr {
-    width: 180px;
+    width: 170px;
     margin-top: 30px;
-    background-color: white;
-    padding: 15px;
-    border-radius: 15px;
+    border-radius: 12px;
+    background: white;
+    padding: 10px;
 }
 
-/* ==========================
-   Responsive
-========================== */
+/* Responsive */
 
 @media (max-width: 992px) {
 
-    .impact-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 40px 20px;
+    .section {
+        padding: 60px 25px;
+    }
+
+    .section h2 {
+        font-size: 32px;
+    }
+
+    .impact-number {
+        font-size: 58px;
     }
 }
 
 @media (max-width: 768px) {
 
-    .section {
-        padding: 50px 20px;
-    }
-
-    .section h2 {
-        font-size: 28px;
-    }
-
     .card {
-        padding: 25px;
+        width: 100%;
     }
-
-    .impact-number {
-        font-size: 54px;
-    }
-
-    .impact-title {
-        font-size: 20px;
-    }
-
-    .card h3 {
-        font-size: 20px;
-    }
-
-    .section p {
-        font-size: 16px;
-    }
-
-    .qr {
-        width: 150px;
-    }
-}
-
-@media (max-width: 576px) {
 
     .impact-grid {
         grid-template-columns: 1fr;
     }
 
     .impact-number {
-        font-size: 48px;
+        font-size: 52px;
+    }
+
+    .impact-title {
+        font-size: 22px;
+    }
+
+    .section h2 {
+        font-size: 28px;
     }
 }
 ```
