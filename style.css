@@ -345,14 +345,24 @@ a {
         padding: 30px;
     }
 
-    .bottom-cards {
-        flex-direction: column;
-        align-items: center;
+    .approach-grid {
+        grid-template-columns: 1fr;
     }
 
-    .bottom-cards .card {
-        width: 100%;
+    .approach-grid .card:nth-child(5),
+    .approach-grid .card:nth-child(6) {
+        grid-column: auto;
+        justify-self: stretch;
     }
+
+    .qr {
+        width: 150px;
+    }
+
+    .contact-name {
+        font-size: 24px;
+    }
+}
 
     .qr {
         width: 150px;
