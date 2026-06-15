@@ -235,7 +235,18 @@ a {
 .contact {
     text-align: center;
 }
+.contact-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
 
+.qr-text {
+    margin: 0;
+    color: #b5c0d0;
+    font-size: 15px;
+}
 .contact-name {
     font-size: 28px;
 
