@@ -220,24 +220,29 @@ a {
 }
 
 /* ==========================
-   APPROCHE - DERNIÈRES CARTES
+   APPROCHE
 ========================== */
 
-.bottom-cards {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
+.approach-grid {
+    max-width: 1200px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, minmax(280px, 1fr));
+
     gap: 30px;
-    flex-wrap: wrap;
-
-    max-width: 850px;
-
-    margin: 50px auto 0;
 }
 
-.bottom-cards .card {
-    flex: 0 1 380px;
-    width: 380px;
+/* Centre les 2 dernières cartes */
+
+.approach-grid .card:nth-child(5) {
+    grid-column: 1 / 2;
+    justify-self: end;
+}
+
+.approach-grid .card:nth-child(6) {
+    grid-column: 2 / 3;
+    justify-self: start;
 }
 
 /* ==========================
