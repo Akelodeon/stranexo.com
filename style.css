@@ -1,35 +1,49 @@
-```css
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #081b3a;
-    color: white;
-    line-height: 1.7;
-}
+/* ==========================
+   STYLE GÉNÉRAL
+========================== */
 
 * {
     box-sizing: border-box;
 }
 
-/* Bannière */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #081b3a;
+    color: #ffffff;
+    line-height: 1.7;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* ==========================
+   BANNIÈRE
+========================== */
 
 .hero-img {
     width: 100%;
     display: block;
 }
 
-/* Sections */
+/* ==========================
+   SECTIONS
+========================== */
 
 .section {
-    max-width: 1200px;
-    margin: auto;
     padding: 80px 30px;
+}
+
+.section.alternate {
+    background-color: #10264d;
 }
 
 .section h2 {
     text-align: center;
     font-size: 38px;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
+    color: white;
     position: relative;
 }
 
@@ -37,109 +51,226 @@ body {
     content: "";
     display: block;
     width: 80px;
-    height: 3px;
+    height: 4px;
     background-color: #d4a64a;
     margin: 20px auto 0;
+    border-radius: 2px;
 }
 
-.section p {
-    font-size: 18px;
-    line-height: 1.8;
+/* ==========================
+   INTRODUCTION
+========================== */
+
+.intro-content {
+    max-width: 1000px;
+    margin: auto;
+    text-align: center;
 }
 
-/* Cartes */
+.intro-content p {
+    font-size: 20px;
+    margin-bottom: 25px;
+}
+
+/* ==========================
+   GRILLES
+========================== */
 
 .grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    max-width: 1200px;
+    margin: auto;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+
     gap: 30px;
 }
 
+/* ==========================
+   CARTES
+========================== */
+
 .card {
-    background: #13284d;
-    border-radius: 18px;
+    background-color: #13284d;
+
     padding: 35px;
-    width: 350px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-    transition: all 0.3s ease;
+
+    border-radius: 20px;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+
+    transition: transform 0.3s ease,
+                box-shadow 0.3s ease;
 }
 
 .card:hover {
     transform: translateY(-8px);
+
+    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.35);
 }
 
 .card h3 {
     color: #d4a64a;
-    font-size: 28px;
+
+    font-size: 26px;
+
     margin-top: 0;
-    margin-bottom: 25px;
-    line-height: 1.4;
+
+    margin-bottom: 20px;
 }
 
 .card p {
-    font-size: 17px;
-    color: #ffffff;
+    margin: 0;
 }
 
-/* Résultats clients */
+.card ul {
+    padding-left: 20px;
+    margin-bottom: 0;
+}
+
+.card li {
+    margin-bottom: 10px;
+}
+
+.card-subtitle {
+    color: #d4a64a;
+
+    font-weight: bold;
+
+    margin-bottom: 20px;
+}
+
+/* ==========================
+   IMPACTS CLIENTS
+========================== */
 
 .impact-grid {
+    max-width: 1200px;
+    margin: auto;
+
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 40px;
-    margin-top: 60px;
+
+    gap: 30px;
 }
 
-.impact-item {
+.impact-card {
+    background-color: #13284d;
+
+    padding: 40px 30px;
+
+    border-radius: 20px;
+
     text-align: center;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+
+    transition: transform 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+.impact-card:hover {
+    transform: translateY(-8px);
+
+    box-shadow: 0 18px 35px rgba(0, 0, 0, 0.35);
 }
 
 .impact-number {
-    display: block;
-    font-size: 72px;
+    font-size: 64px;
+
     font-weight: 700;
+
     color: #d4a64a;
+
     margin-bottom: 20px;
-    line-height: 1;
 }
 
-.impact-title {
-    display: block;
+.impact-card h3 {
     font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
+
     color: white;
+
+    margin-bottom: 20px;
 }
 
-.impact-item p {
-    color: #d0d9e8;
-    font-size: 16px;
+.impact-card p {
+    color: #d0d8e5;
+
+    margin: 0;
 }
 
 .impact-note {
     text-align: center;
-    margin-top: 50px;
-    color: #b8c3d6;
+
+    margin-top: 40px;
+
+    color: #b5c0d0;
+
     font-style: italic;
 }
 
-/* Contact */
+/* ==========================
+   APPROCHE - DERNIÈRES CARTES
+========================== */
+
+.bottom-cards {
+    display: flex;
+
+    justify-content: center;
+
+    gap: 30px;
+
+    flex-wrap: wrap;
+
+    max-width: 800px;
+
+    margin: 30px auto 0;
+}
+
+.bottom-cards .card {
+    flex: 1;
+
+    min-width: 280px;
+
+    max-width: 380px;
+}
+
+/* ==========================
+   CONTACT
+========================== */
 
 .contact {
     text-align: center;
 }
 
+.contact-name {
+    font-size: 28px;
+
+    font-weight: bold;
+
+    color: #d4a64a;
+}
+
+.contact p {
+    margin-bottom: 12px;
+}
+
 .contact a {
     display: inline-block;
-    background: #d4a64a;
+
+    margin-top: 25px;
+
+    background-color: #d4a64a;
+
     color: #081b3a;
+
     padding: 15px 30px;
-    border-radius: 8px;
+
+    border-radius: 10px;
+
     font-weight: bold;
-    text-decoration: none;
-    margin-top: 20px;
-    transition: 0.3s;
+
+    transition: transform 0.3s ease;
 }
 
 .contact a:hover {
@@ -147,50 +278,45 @@ body {
 }
 
 .qr {
-    width: 170px;
+    width: 180px;
+
     margin-top: 30px;
-    border-radius: 12px;
-    background: white;
-    padding: 10px;
+
+    border-radius: 15px;
+
+    background-color: white;
+
+    padding: 12px;
 }
 
-/* Responsive */
-
-@media (max-width: 992px) {
-
-    .section {
-        padding: 60px 25px;
-    }
-
-    .section h2 {
-        font-size: 32px;
-    }
-
-    .impact-number {
-        font-size: 58px;
-    }
-}
+/* ==========================
+   RESPONSIVE
+========================== */
 
 @media (max-width: 768px) {
 
-    .card {
-        width: 100%;
+    .section {
+        padding: 60px 20px;
     }
 
-    .impact-grid {
-        grid-template-columns: 1fr;
+    .section h2 {
+        font-size: 30px;
+    }
+
+    .intro-content p {
+        font-size: 18px;
     }
 
     .impact-number {
         font-size: 52px;
     }
 
-    .impact-title {
-        font-size: 22px;
+    .card,
+    .impact-card {
+        padding: 30px;
     }
 
-    .section h2 {
-        font-size: 28px;
+    .qr {
+        width: 150px;
     }
 }
-```
