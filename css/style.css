@@ -863,3 +863,24 @@ font-size:34px;
 }
 
 }
+
+.about-values div{
+background:#f5f7fa;
+padding:18px;
+border-radius:12px;
+font-weight:600;
+text-align:center;
+}
+
+.linkedin-link{
+display:inline-flex;
+align-items:center;
+gap:10px;
+font-weight:600;
+color:#0A66C2;
+transition:.3s;
+}
+
+.linkedin-link:hover{
+opacity:.8;
+}
