@@ -892,3 +892,13 @@ transition:.3s;
 .linkedin-link:hover{
 opacity:.8;
 }
+
+.stat-icon{
+font-size:28px;
+margin-bottom:12px;
+}
+
+.card-icon{
+font-size:38px;
+margin-bottom:20px;
+}
