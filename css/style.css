@@ -902,3 +902,25 @@ margin-bottom:12px;
 font-size:38px;
 margin-bottom:20px;
 }
+
+@media(max-width:768px){
+
+.navbar{
+height:auto;
+padding:15px 0;
+}
+
+.logo img{
+height:42px;
+}
+
+.btn-primary{
+padding:12px 18px;
+font-size:14px;
+}
+
+.nav-actions{
+display:none;
+}
+
+}
