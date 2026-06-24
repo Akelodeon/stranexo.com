@@ -908,6 +908,13 @@ margin-bottom:20px;
 .navbar{
 height:auto;
 padding:15px 0;
+justify-content:center;
+}
+
+.logo{
+display:flex;
+justify-content:center;
+width:100%;
 }
 
 .logo img{
