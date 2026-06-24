@@ -888,6 +888,8 @@ height:55px;
 }
 
 .hero-content{
+max-width:600px;
+margin:auto;
 text-align:center;
 }
 
