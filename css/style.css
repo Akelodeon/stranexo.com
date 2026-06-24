@@ -944,3 +944,14 @@ font-size:14px;
 }
 
 }
+.footer a{
+color:rgba(255,255,255,.8);
+}
+
+.footer a:hover{
+color:#C9A227;
+}
+
+.footer a:visited{
+color:rgba(255,255,255,.8);
+}
