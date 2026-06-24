@@ -339,15 +339,23 @@ Fondateur de STRANEXO
 
 <div class="contact-right">
 
-<form>
+<<form action="https://formsubmit.co/axel@stranexo.com" method="POST">
 
-<input type="text" placeholder="Nom et prénom">
+<input type="hidden" name="_subject" value="Nouveau contact STRANEXO">
 
-<input type="email" placeholder="Email professionnel">
+<input type="hidden" name="_captcha" value="false">
 
-<input type="text" placeholder="Entreprise">
+<input type="hidden" name="_next" value="https://stranexo.com/merci.html">
 
-<textarea placeholder="Votre message"></textarea>
+<input type="text" name="Nom" placeholder="Nom et prénom" required>
+
+<input type="email" name="Email" placeholder="Email professionnel" required>
+
+<input type="text" name="Entreprise" placeholder="Entreprise">
+
+<input type="tel" name="Téléphone" placeholder="Téléphone">
+
+<textarea name="Message" placeholder="Votre message" required></textarea>
 
 <button type="submit">
 Envoyer le message
