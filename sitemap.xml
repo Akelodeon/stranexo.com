@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+
+<url>
+<loc>https://www.stranexo.com/</loc>
+<priority>1.0</priority>
+</url>
+
+<url>
+<loc>https://www.stranexo.com/mentions-legales.html</loc>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>https://www.stranexo.com/politique-confidentialite.html</loc>
+<priority>0.5</priority>
+</url>
+
+</urlset>
