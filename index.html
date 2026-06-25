@@ -39,18 +39,22 @@
 {
   "@context":"https://schema.org",
   "@graph":[
-    {
-      "@type":"Organization",
-      "@id":"https://www.stranexo.com/#organization",
-      "name":"STRANEXO",
-      "url":"https://www.stranexo.com",
-      "logo":"https://www.stranexo.com/images/logo.png",
-      "email":"mailto:axel@stranexo.com",
-      "telephone":"+33768621303",
-      "sameAs":[
-        "https://www.linkedin.com/in/axelbogiraud"
-      ]
-    },
+  {
+  "@type":"Organization",
+  "@id":"https://www.stranexo.com/#organization",
+  "name":"STRANEXO",
+  "url":"https://www.stranexo.com",
+  "logo":"https://www.stranexo.com/images/logo.png",
+  "image":"https://www.stranexo.com/images/logo.png",
+  "founder":{
+    "@id":"https://www.stranexo.com/#axel"
+  },
+  "email":"mailto:axel@stranexo.com",
+  "telephone":"+33768621303",
+  "sameAs":[
+    "https://www.linkedin.com/in/axelbogiraud"
+  ]
+},
     {
       "@type":"Person",
       "@id":"https://www.stranexo.com/#axel",
@@ -71,6 +75,7 @@
       "@type":"ProfessionalService",
       "@id":"https://www.stranexo.com/#service",
       "name":"STRANEXO",
+      "image":"https://www.stranexo.com/images/logo.png",
       "url":"https://www.stranexo.com",
       "provider":{
         "@id":"https://www.stranexo.com/#organization"
@@ -93,7 +98,7 @@
     "@type":"City",
     "name":"Buenos Aires"
   }
-]
+],
       "serviceType":[
         "Direction Supply Chain Fractionnée",
         "Optimisation des Flux Internationaux",
