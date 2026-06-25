@@ -935,7 +935,13 @@ grid-template-columns:1fr;
 }
 
 .hero-visual{
-display:none;
+display:block;
+margin-top:30px;
+}
+
+.hero-shape{
+max-width:320px;
+margin:0 auto;
 }
 
 .btn-primary{
