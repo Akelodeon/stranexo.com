@@ -57,9 +57,21 @@ a{
 
 }
 
+.section:nth-of-type(even){
+
+    background:#f8fafc;
+
+}
+
+.section:nth-of-type(odd){
+
+    background:#ffffff;
+
+}
+
 section{
 
-    padding:80px 0;
+    padding:100px 0;
 
 }
 
@@ -193,21 +205,61 @@ section{
 .hero{
 
     background:
+    radial-gradient(circle at top right, rgba(201,162,39,.10), transparent 40%),
+    linear-gradient(180deg,#ffffff 0%,#f8fafc 100%);
 
-    radial-gradient(
-        circle at top right,
-        rgba(201,162,39,.08),
-        transparent 35%
-    ),
+    padding:110px 0 90px;
 
-    linear-gradient(
-        180deg,
-        #ffffff 0%,
-        #f8fafc 100%
-    );
+}
 
-    padding-top:80px;
-    padding-bottom:70px;
+.hero-page .hero-content{
+
+    max-width:760px;
+    padding-right:40px;
+
+}
+
+.hero-page .hero-grid{
+
+    align-items:flex-start;
+
+}
+
+.hero-page h1{
+
+    max-width:820px;
+
+}
+
+.hero-page .btn-primary{
+
+    margin-top:18px;
+
+}
+
+.hero-subtitle{
+
+    font-size:28px;
+    font-weight:600;
+    color:var(--navy);
+
+    margin-bottom:30px;
+
+}
+
+.hero-highlight{
+
+    margin:40px 0;
+
+    padding-left:24px;
+
+    border-left:4px solid var(--gold);
+
+    font-size:22px;
+
+    font-weight:600;
+
+    color:var(--navy);
 
 }
 
@@ -215,13 +267,11 @@ section{
 
     display:grid;
 
-    grid-template-columns:
-    1.1fr
-    1fr;
+    grid-template-columns:minmax(0,1.45fr) 420px;
 
-    gap:80px;
+    gap:60px;
 
-    align-items:center;
+    align-items:start;
 
 }
 
@@ -464,9 +514,16 @@ font-weight:700;
 
 .cards-grid{
 display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:25px;
+grid-template-columns:repeat(2,1fr);
+gap:24px;
 margin-bottom:40px;
+}
+
+.hero-visual .card{
+min-height:220px;
+display:flex;
+flex-direction:column;
+justify-content:center;
 }
 
 .card{
@@ -498,14 +555,37 @@ text-align:center;
 }
 
 .transition-box{
-margin-top:50px;
-padding:25px 35px;
-background:#fff;
-border-left:5px solid #c79b2c;
-border-radius:12px;
-font-size:18px;
-font-weight:500;
-box-shadow:0 5px 20px rgba(0,0,0,.05);
+
+    margin-top:60px;
+
+    padding:36px 42px;
+
+    background:linear-gradient(135deg,#ffffff 0%,#fcfcf9 100%);
+
+    border-left:6px solid var(--gold);
+
+    border-radius:18px;
+
+    box-shadow:0 15px 35px rgba(15,23,42,.08);
+
+    font-size:19px;
+
+    line-height:1.9;
+
+    color:var(--navy);
+
+}
+
+.transition-box strong{
+
+    display:block;
+
+    font-size:22px;
+
+    margin-bottom:14px;
+
+    color:var(--navy);
+
 }
 
 /* =========================
@@ -991,4 +1071,261 @@ padding:16px 24px;
 box-shadow:0 8px 20px rgba(15,23,42,.05);
 font-size:17px;
 color:var(--navy);
+}
+
+/* ======================================================
+   PAGES INTERNES STRANEXO
+====================================================== */
+
+.section-header{
+
+    max-width:850px;
+    margin:0 auto 55px;
+
+    text-align:center;
+
+}
+
+.section-tag{
+
+    display:inline-block;
+
+    margin-bottom:18px;
+
+    color:var(--gold);
+
+    font-size:15px;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+}
+
+.section-header h2{
+
+    font-size:46px;
+
+    line-height:1.2;
+
+    color:var(--navy);
+
+    margin-bottom:20px;
+
+}
+
+.section-header p{
+
+    font-size:20px;
+
+    color:#64748B;
+
+}
+
+.section-content{
+
+    max-width:900px;
+
+    margin:auto;
+
+}
+
+.section-content p{
+
+    margin-bottom:24px;
+
+    font-size:18px;
+
+}
+
+.feature-list{
+
+    margin:35px 0;
+
+    padding-left:22px;
+
+}
+
+.feature-list li{
+
+    margin-bottom:16px;
+
+    color:var(--text);
+
+    line-height:1.8;
+
+}
+
+/* ======================================================
+   FAQ
+====================================================== */
+
+.faq{
+
+    max-width:900px;
+
+    margin:0 auto;
+
+}
+
+.faq-item{
+
+    padding:32px 0;
+
+    border-bottom:1px solid var(--border);
+
+}
+
+.faq-item:last-child{
+
+    border-bottom:none;
+
+}
+
+.faq-item h3{
+
+    color:var(--navy);
+
+    font-size:24px;
+
+    margin-bottom:16px;
+
+    line-height:1.4;
+
+}
+
+.faq-item p{
+
+    font-size:18px;
+
+    color:var(--text);
+
+    margin-bottom:14px;
+
+}
+
+.faq-item p:last-child{
+
+    margin-bottom:0;
+
+}
+
+/* ======================================================
+   CTA FINAL
+====================================================== */
+
+.cta-section{
+
+    background:var(--navy);
+
+    padding:90px 0;
+
+}
+
+.cta-box{
+
+    max-width:900px;
+
+    margin:0 auto;
+
+    text-align:center;
+
+    color:var(--white);
+
+}
+
+.cta-box .section-tag{
+
+    color:var(--gold);
+
+}
+
+.cta-box h2{
+
+    font-size:46px;
+
+    margin-bottom:24px;
+
+    color:var(--white);
+
+}
+
+.cta-box p{
+
+    font-size:20px;
+
+    color:rgba(255,255,255,.85);
+
+    margin-bottom:18px;
+
+}
+
+.cta-box .btn-primary{
+
+    margin-top:24px;
+
+}
+
+/* ======================================================
+   LISTES DES PAGES INTERNES
+====================================================== */
+
+.feature-list{
+
+    margin:45px 0;
+
+    padding:0;
+
+    list-style:none;
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:24px 50px;
+
+}
+
+.feature-list li{
+
+    position:relative;
+
+    padding-left:34px;
+
+    color:var(--text);
+
+    line-height:1.9;
+
+    font-size:17px;
+
+}
+
+.feature-list li::before{
+
+    content:"✓";
+
+    position:absolute;
+
+    left:0;
+
+    top:1px;
+
+    color:var(--gold);
+
+    font-size:18px;
+
+    font-weight:700;
+
+}
+
+@media(max-width:900px){
+
+.feature-list{
+
+    grid-template-columns:1fr;
+
+}
+
 }
