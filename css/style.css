@@ -208,7 +208,7 @@ section{
     radial-gradient(circle at top right, rgba(201,162,39,.10), transparent 40%),
     linear-gradient(180deg,#ffffff 0%,#f8fafc 100%);
 
-    padding:110px 0 90px;
+    padding:110px 0 40px;
 
 }
 
@@ -281,7 +281,7 @@ section{
 
     color:var(--gold);
 
-    font-size:20px;
+    font-size:26px;
     font-weight:700;
     letter-spacing:2px;
     margin-bottom:20px;
@@ -497,7 +497,7 @@ margin:0 auto 60px;
 
 .section-title span{
 display:block;
-font-size:20px;
+font-size:28px;
 font-weight:700;
 letter-spacing:2px;
 text-transform:uppercase;
@@ -517,6 +517,18 @@ display:grid;
 grid-template-columns:repeat(2,1fr);
 gap:24px;
 margin-bottom:40px;
+}
+
+#pourquoi-stranexo .cards-grid .card:last-child{
+grid-column:1 / -1;
+max-width:600px;
+margin:0 auto;
+}
+
+.challenges .cards-grid .card:last-child{
+grid-column:1 / -1;
+max-width:600px;
+margin:0 auto;
 }
 
 .hero-visual .card{
@@ -748,9 +760,11 @@ transform:translateY(-6px);
 }
 
 .results-grid h3{
-font-size:42px;
+font-size:22px;
+line-height:1.3;
 color:#c79b2c;
 margin-bottom:15px;
+min-height:80px;
 }
 
 .results-grid p{
@@ -1328,4 +1342,8 @@ color:var(--navy);
 
 }
 
+}
+
+.indice-section{
+padding:70px 0;
 }
