@@ -49,6 +49,12 @@
   "founder":{
     "@id":"https://www.stranexo.com/#axel"
   },
+  "address":{
+    "@type":"PostalAddress",
+    "addressLocality":"Valence",
+    "addressRegion":"Auvergne-Rhône-Alpes",
+    "addressCountry":"FR"
+  },
   "email":"mailto:axel@stranexo.com",
   "telephone":"+33768621303",
   "sameAs":[
@@ -80,23 +86,19 @@
       "provider":{
         "@id":"https://www.stranexo.com/#organization"
       },
-      "description":"Cabinet de conseil spécialisé dans l'optimisation des flux internationaux, la Supply Chain, la douane et le commerce international. STRANEXO accompagne les PME et ETI en Europe et en Amérique du Sud dans l'amélioration de leur performance opérationnelle.",
+      "description":"Cabinet de conseil spécialisé dans l'optimisation des flux internationaux, la Supply Chain, la douane et le commerce international. STRANEXO accompagne les PME et ETI basées en France, notamment dans la Vallée du Rhône, dans l'amélioration de leur performance opérationnelle.",
       "areaServed":[
   {
-    "@type":"Country",
-    "name":"France"
+    "@type":"City",
+    "name":"Valence"
   },
   {
     "@type":"Place",
-    "name":"Europe"
+    "name":"Vallée du Rhône"
   },
   {
     "@type":"Country",
-    "name":"Argentina"
-  },
-  {
-    "@type":"City",
-    "name":"Buenos Aires"
+    "name":"France"
   }
 ],
       "serviceType":[
@@ -134,12 +136,16 @@
                 <img src="images/logo.png" alt="STRANEXO - Consultant Supply Chain et Commerce International">
             </a>
 
+            <button class="nav-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+
 <nav class="nav-menu">
     <a href="index.html">Accueil</a>
     <a href="#expertise">Expertises</a>
     <a href="indice-stranexo.html">Indice STRANEXO</a>
     <a href="a-propos.html">À propos</a>
-    <a href="contact.html">Contact</a>
+    <a href="#contact">Contact</a>
 </nav>
 
             <div class="nav-actions">
@@ -182,8 +188,8 @@ J'accompagne les PME industrielles et agroalimentaires dans l'optimisation, la s
 
 <div class="hero-buttons">
 
-<a href="indice-stranexo.html" class="btn-primary">
-Évaluer mes flux
+<a href="#contact" class="btn-primary">
+Planifier un échange
 </a>
 
 <a href="#expertise" class="btn-secondary">
@@ -486,7 +492,7 @@ Vous souhaitez optimiser vos flux internationaux, structurer votre Supply Chain 
 
 <input type="hidden" name="_subject" value="Nouveau contact STRANEXO">
 <input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_next" value="https://stranexo.com/merci.html">
+<input type="hidden" name="_next" value="https://www.stranexo.com/merci.html">
 
 <input type="text" name="Nom" placeholder="Nom et prénom" required>
 
@@ -540,8 +546,7 @@ J'accompagne les PME et ETI industrielles et agroalimentaires dans l'optimisatio
 
 <ul>
 <li><a href="#expertise">Expertise</a></li>
-<li><a href="#resultats">Résultats</a></li>
-<li><a href="#apropos">À propos</a></li>
+<li><a href="a-propos.html">À propos</a></li>
 <li><a href="#contact">Contact</a></li>
 
 <li><a href="mentions-legales.html">Mentions légales</a></li>
@@ -587,6 +592,8 @@ class="linkedin-link">
 </div>
 
 </footer>
-            
-</body></html> 
+
+<script src="js/menu.js"></script>
+
+</body></html>
 
