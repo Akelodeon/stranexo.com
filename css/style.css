@@ -138,14 +138,24 @@ section{
 .language-switch{
 
     display:flex;
-    gap:8px;
-    font-size:14px;
+    align-items:center;
+    gap:10px;
+    font-size:26px;
+    line-height:1;
 
 }
 
 .language-switch a{
 
     color:#64748B;
+    opacity:.55;
+    transition:.3s;
+
+}
+
+.language-switch a:hover{
+
+    opacity:1;
 
 }
 
