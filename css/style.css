@@ -275,6 +275,16 @@ section{
 
 }
 
+.hero-container-wide{
+    width:min(1320px,94%);
+}
+
+@media(min-width:993px){
+.hero-grid-wide{
+    grid-template-columns:minmax(0,1fr) 520px;
+}
+}
+
 .hero-tag{
 
     display:inline-block;
@@ -366,6 +376,18 @@ border:8px solid var(--navy);
 
     z-index:2;
 
+}
+
+.dashboard-shape{
+border-radius:28px;
+overflow:hidden;
+box-shadow:0 25px 60px rgba(15,23,42,.2);
+}
+
+.dashboard-shape img{
+width:100%;
+height:auto;
+display:block;
 }
 
 .hero-stats{
