@@ -8,7 +8,7 @@
 
 <title>Indice STRANEXO | STRANEXO</title>
 
-<meta name="description" content="L'Indice STRANEXO, un diagnostic pour évaluer la maturité de vos flux internationaux, arrive prochainement.">
+<meta name="description" content="L'Indice STRANEXO : un diagnostic express en 5 minutes pour mesurer la maturité de vos flux internationaux et obtenir votre indice sur 100.">
 
 <link rel="canonical" href="https://www.stranexo.com/indice-stranexo.html">
 <link rel="alternate" hreflang="fr" href="https://www.stranexo.com/indice-stranexo.html">
@@ -19,6 +19,7 @@
 <meta name="theme-color" content="#0F172A">
 
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/indice.css">
 
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -71,39 +72,20 @@ Planifier un échange
 
 </header>
 
-<section class="hero">
+<section class="indice-app-section">
 
 <div class="container">
 
-<div class="section-content" style="max-width:800px;margin:60px auto;text-align:center;">
+<div class="indice-app" id="indice-app">
 
-<span class="hero-tag">
-INDICE STRANEXO
-</span>
-
-<h1 style="margin-bottom:24px;">
-Prochainement disponible
-</h1>
-
-<p style="font-size:20px;margin-bottom:35px;">
-L'Indice STRANEXO est en cours de construction. Ce diagnostic vous permettra bientôt d'évaluer en quelques minutes la maturité de vos flux internationaux.
-</p>
-
-<p style="margin-bottom:35px;">
-En attendant, échangeons directement sur vos enjeux.
-</p>
-
-<div class="hero-buttons" style="justify-content:center;">
-
-<a href="index.html#contact" class="btn-primary">
-Planifier un échange
-</a>
-
-<a href="index.html" class="btn-secondary">
-Retour à l'accueil
-</a>
-
+<div class="indice-progress" id="indice-progress" hidden>
+<div class="indice-progress-bar">
+<div class="indice-progress-fill" id="indice-progress-fill"></div>
 </div>
+<span class="indice-progress-label" id="indice-progress-label"></span>
+</div>
+
+<div id="indice-screen"></div>
 
 </div>
 
@@ -187,6 +169,9 @@ class="linkedin-link">
 </footer>
 
 <script src="js/menu.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+<script src="js/indice-data.js"></script>
+<script src="js/indice.js"></script>
 
 </body>
 
