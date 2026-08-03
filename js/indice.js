@@ -411,7 +411,17 @@
           '<p>L\'Indice STRANEXO donne une première mesure. Un diagnostic approfondi permet d\'identifier précisément vos fragilités et vos leviers de performance.</p>' +
           '<a href="index.html#contact" class="btn-primary">Planifier un échange avec STRANEXO</a>' +
         '</div>' +
+
+        '<p class="indice-restart-link"><a href="#" id="btn-restart">Refaire le diagnostic</a></p>' +
       '</div>';
+
+    var restartLink = document.getElementById("btn-restart");
+    if (restartLink) {
+      restartLink.addEventListener("click", function (e) {
+        e.preventDefault();
+        restartDiagnostic();
+      });
+    }
 
     animateScore(globalIndex);
     renderRadar(pillarScores);
@@ -578,16 +588,22 @@
     resultats: renderResultats
   };
 
+  // On ne reprend automatiquement que sur un diagnostic EN COURS (infos entreprise ou pilier).
+  // Un diagnostic déjà terminé (résultats) ne doit pas rester affiché indéfiniment : une nouvelle
+  // visite sur la page doit repartir sur un écran vierge, pas réafficher un ancien score.
+  var RESUMABLE_SCREENS = ["entreprise", "pillar"];
+
   document.addEventListener("DOMContentLoaded", function () {
     if (!root) return;
 
     var saved = loadState();
-    if (saved && saved.screen && saved.screen !== "accueil") {
+    if (saved && RESUMABLE_SCREENS.indexOf(saved.screen) !== -1) {
       state = saved;
-      if (state.screen === "calcul") state.screen = "resultats";
       var renderFn = SCREEN_RENDERERS[state.screen] || renderAccueil;
       renderFn();
     } else {
+      if (saved) clearState();
+      state = freshState();
       renderAccueil();
     }
   });
