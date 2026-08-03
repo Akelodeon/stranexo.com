@@ -43,6 +43,9 @@
       labelEmail: "Email professionnel *",
       labelTelephone: "Téléphone",
       consentText: "J'accepte que mes données et mes réponses soient utilisées par STRANEXO pour m'adresser mes résultats et me recontacter à ce sujet.",
+      formErrorEmail: "Merci de renseigner une adresse email valide.",
+      formErrorConsent: "Merci d'accepter les conditions pour continuer.",
+      formErrorRequired: "Merci de compléter les champs obligatoires (*).",
       btnStartDiag: "Commencer le diagnostic",
       restartLink: "Recommencer le diagnostic à zéro",
 
@@ -92,6 +95,9 @@
       labelEmail: "Email profesional *",
       labelTelephone: "Teléfono",
       consentText: "Acepto que mis datos y respuestas sean utilizados por STRANEXO para enviarme mis resultados y contactarme al respecto.",
+      formErrorEmail: "Por favor ingresá una dirección de email válida.",
+      formErrorConsent: "Por favor aceptá las condiciones para continuar.",
+      formErrorRequired: "Por favor completá los campos obligatorios (*).",
       btnStartDiag: "Comenzar el diagnóstico",
       restartLink: "Reiniciar el diagnóstico desde cero",
 
@@ -158,7 +164,7 @@
     var s = {
       screen: "accueil",
       pillarIndex: 0,
-      company: { entreprise: "", secteur: "", contact: "", email: "", telephone: "" },
+      company: { entreprise: "", secteur: "", contact: "", email: "", telephone: "", consent: false },
       answers: {},
       emailSent: false
     };
@@ -310,9 +316,10 @@
             '<input type="tel" id="f-telephone" name="telephone" value="' + c.telephone + '">' +
           '</div>' +
           '<label class="indice-consent">' +
-            '<input type="checkbox" id="f-consent" required>' +
+            '<input type="checkbox" id="f-consent" required' + (c.consent ? " checked" : "") + '>' +
             '<span>' + T.consentText + '</span>' +
           '</label>' +
+          '<p class="indice-form-error" id="indice-form-error" hidden></p>' +
           '<div class="indice-nav-buttons">' +
             '<button type="button" class="btn-secondary" id="btn-back-presentation">' + T.btnBack + '</button>' +
             '<button type="submit" class="btn-primary">' + T.btnStartDiag + '</button>' +
@@ -340,8 +347,29 @@
       state.company.contact = document.getElementById("f-contact").value.trim();
       state.company.email = document.getElementById("f-email").value.trim();
       state.company.telephone = document.getElementById("f-telephone").value.trim();
+      state.company.consent = document.getElementById("f-consent").checked;
 
-      if (!state.company.entreprise || !state.company.contact || !state.company.email) return;
+      var errorEl = document.getElementById("indice-form-error");
+      var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      var errorMsg = "";
+      if (!state.company.entreprise || !state.company.contact || !state.company.email) {
+        errorMsg = T.formErrorRequired;
+      } else if (!EMAIL_RE.test(state.company.email)) {
+        errorMsg = T.formErrorEmail;
+      } else if (!state.company.consent) {
+        errorMsg = T.formErrorConsent;
+      }
+
+      if (errorMsg) {
+        if (errorEl) {
+          errorEl.textContent = errorMsg;
+          errorEl.hidden = false;
+        }
+        return;
+      }
+
+      if (errorEl) errorEl.hidden = true;
 
       state.pillarIndex = 0;
       state.screen = "pillar";

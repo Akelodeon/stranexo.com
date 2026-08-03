@@ -210,6 +210,13 @@
     color:#64748B;
 }
 
+.indice-form-error{
+    font-size:14px;
+    font-weight:600;
+    color:#DC2626;
+    margin:0;
+}
+
 /* ---------- Questions / piliers ---------- */
 
 .indice-questions{
