@@ -486,24 +486,15 @@
     });
   }
 
-  /* ---------- ENVOI EMAIL (formsubmit.co) ---------- */
+  /* ---------- ENVOI EMAIL ----------
+     - Notification interne complète (toutes les réponses) -> axel@stranexo.com via formsubmit.co
+     - Confirmation visuelle brandée STRANEXO -> l'entreprise via EmailJS
+  ====================================================== */
 
-  function buildAutoresponse(globalIndex, level) {
-    return (
-      "Bonjour,\n\n" +
-      "Voici les résultats de votre diagnostic express des flux internationaux :\n\n" +
-      "Indice STRANEXO : " + globalIndex + "/100\n" +
-      "Niveau de maturité : " + level + "\n\n" +
-      STRANEXO_CONCLUSION_COMMUNE + "\n\n" +
-      "Axel Bogiraud\n" +
-      "STRANEXO — Performance des Flux Internationaux\n" +
-      "axel@stranexo.com"
-    );
-  }
+  var EMAILJS_SERVICE_ID = "service_rsogpte";
+  var EMAILJS_TEMPLATE_ID = "template_0e27s8c";
 
-  function sendResultsByEmail(pillarScores, globalIndex, level) {
-    var statusEl = document.getElementById("indice-email-status");
-
+  function sendInternalNotification(pillarScores, globalIndex, level) {
     var detail = STRANEXO_PILLARS.map(function (p, i) {
       var qa = p.questions.map(function (q, qi) {
         return "   - " + q + " -> " + answerLabel(state.answers[p.id][qi]);
@@ -515,11 +506,6 @@
       _subject: "Indice STRANEXO - " + state.company.entreprise + " - " + globalIndex + "/100 (" + level + ")",
       _template: "box",
       _captcha: "false",
-      // _autoresponse ne fonctionne pas ici : formsubmit.co désactive cette fonction dès que le
-      // formulaire est envoyé en AJAX et/ou avec le captcha désactivé (documenté officiellement).
-      // On utilise donc _cc pour garantir que l'entreprise reçoive bien une copie du résultat.
-      _autoresponse: buildAutoresponse(globalIndex, level),
-      _cc: state.company.email,
       email: state.company.email,
       "Entreprise": state.company.entreprise,
       "Secteur": state.company.secteur || "-",
@@ -531,26 +517,54 @@
       "Detail des reponses": detail
     };
 
-    fetch("https://formsubmit.co/ajax/axel@stranexo.com", {
+    return fetch("https://formsubmit.co/ajax/axel@stranexo.com", {
       method: "POST",
       headers: { "Content-Type": "application/json", "Accept": "application/json" },
       body: JSON.stringify(payload)
-    })
-      .then(function (res) {
-        if (!res.ok) throw new Error("send failed");
-        state.emailSent = true;
-        saveState();
-        if (statusEl) {
-          statusEl.textContent = "Vos résultats ont été envoyés par email à " + state.company.email + ".";
-          statusEl.classList.add("is-success");
-        }
-      })
-      .catch(function () {
-        if (statusEl) {
-          statusEl.textContent = "L'envoi automatique par email a rencontré un problème. Vous pouvez nous contacter directement à axel@stranexo.com pour recevoir vos résultats.";
-          statusEl.classList.add("is-error");
-        }
-      });
+    }).then(function (res) {
+      if (!res.ok) throw new Error("formsubmit send failed");
+    });
+  }
+
+  function sendCompanyConfirmation(globalIndex, level) {
+    if (typeof emailjs === "undefined") {
+      return Promise.reject(new Error("EmailJS non chargé"));
+    }
+    return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+      to_email: state.company.email,
+      to_name: state.company.contact,
+      entreprise: state.company.entreprise,
+      score: globalIndex,
+      level: level
+    });
+  }
+
+  function sendResultsByEmail(pillarScores, globalIndex, level) {
+    var statusEl = document.getElementById("indice-email-status");
+
+    Promise.allSettled([
+      sendInternalNotification(pillarScores, globalIndex, level),
+      sendCompanyConfirmation(globalIndex, level)
+    ]).then(function (results) {
+      var internalOk = results[0].status === "fulfilled";
+      var companyOk = results[1].status === "fulfilled";
+
+      state.emailSent = true;
+      saveState();
+
+      if (!internalOk) console.error("Notification interne (formsubmit) échouée:", results[0].reason);
+      if (!companyOk) console.error("Confirmation entreprise (EmailJS) échouée:", results[1].reason);
+
+      if (!statusEl) return;
+
+      if (companyOk) {
+        statusEl.textContent = "Vos résultats ont été envoyés par email à " + state.company.email + ".";
+        statusEl.classList.add("is-success");
+      } else {
+        statusEl.textContent = "L'envoi automatique par email a rencontré un problème. Vous pouvez nous contacter directement à axel@stranexo.com pour recevoir vos résultats.";
+        statusEl.classList.add("is-error");
+      }
+    });
   }
 
   /* ---------- INIT ---------- */
