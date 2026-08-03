@@ -1,16 +1,130 @@
 /* ======================================================
    INDICE STRANEXO — Moteur + Parcours + Email
    Dépend de js/indice-data.js (chargé avant ce fichier)
+   Bilingue FR/ES : la langue est détectée via <html lang="...">
 ====================================================== */
 
 (function () {
   "use strict";
 
+  /* ---------- LANGUE ---------- */
+
+  var LANG = (document.documentElement.lang || "fr").slice(0, 2) === "es" ? "es" : "fr";
+  var CONTENT = STRANEXO_CONTENT[LANG];
+
+  var STRANEXO_PILLARS = CONTENT.pillars;
+  var STRANEXO_ANSWER_SCALE = CONTENT.answerScale;
+  var STRANEXO_CONCLUSION_COMMUNE = CONTENT.conclusion;
+  var STRANEXO_LEVELS = CONTENT.levels;
+
+  var UI_STRINGS = {
+    fr: {
+      accueilTag: "INDICE STRANEXO",
+      accueilTitle: "Quel est le niveau de maturité de vos flux internationaux ?",
+      accueilLead: "En 5 minutes, obtenez un premier indice de maturité de vos flux internationaux, sur 5 dimensions clés : transport, douane, incoterms, fournisseurs et organisation.",
+      metaDuration: "chrono",
+      metaQuestions: "questions",
+      metaIndex: "indice chiffré",
+      btnStart: "Démarrer mon diagnostic",
+
+      presentationTag: "COMMENT ÇA MARCHE",
+      presentationTitle: "Un diagnostic express en 5 piliers",
+      presentationText: "Pour chaque pilier, 6 questions fermées. Répondez avec la réponse la plus proche de votre réalité actuelle : Oui, En grande partie, Partiellement, ou Non.",
+      presentationNote: "À l'issue du diagnostic, vous obtenez un Indice STRANEXO sur 100 ainsi qu'un niveau de maturité, et vous recevez vos résultats par email.",
+      btnBack: "Retour",
+      btnBegin: "Commencer",
+
+      entrepriseTag: "VOS COORDONNÉES",
+      entrepriseTitle: "Quelques informations avant de commencer",
+      entrepriseNote: "Ces informations nous permettent de vous adresser vos résultats par email et, si vous le souhaitez, d'échanger avec vous ensuite.",
+      labelEntreprise: "Nom de l'entreprise *",
+      labelSecteur: "Secteur d'activité",
+      labelContact: "Nom et prénom *",
+      labelEmail: "Email professionnel *",
+      labelTelephone: "Téléphone",
+      consentText: "J'accepte que mes données et mes réponses soient utilisées par STRANEXO pour m'adresser mes résultats et me recontacter à ce sujet.",
+      btnStartDiag: "Commencer le diagnostic",
+      restartLink: "Recommencer le diagnostic à zéro",
+
+      pillarTagPrefix: "PILIER",
+      btnPrevious: "Précédent",
+      btnContinue: "Continuer",
+
+      calculTitle: "Calcul de votre Indice STRANEXO...",
+      calculNote: "Analyse de vos réponses sur les 5 piliers.",
+
+      resultsTag: "VOS RÉSULTATS",
+      resultsTitle: "Votre Indice STRANEXO",
+      ctaTag: "ET MAINTENANT ?",
+      ctaTitle: "Passez du constat à la cartographie de vos flux",
+      ctaText: "L'Indice STRANEXO donne une première mesure. Un diagnostic approfondi permet d'identifier précisément vos fragilités et vos leviers de performance.",
+      ctaButton: "Planifier un échange avec STRANEXO",
+      ctaLink: "index.html#contact",
+      restartDiagLink: "Refaire le diagnostic",
+      emailSentPrefix: "Vos résultats ont été envoyés par email à ",
+      emailErrorText: "L'envoi automatique par email a rencontré un problème. Vous pouvez nous contacter directement à axel@stranexo.com pour recevoir vos résultats.",
+      radarLabel: "Indice par pilier",
+      stepLabel: "Étape",
+      scoreUnit: "/100"
+    },
+    es: {
+      accueilTag: "ÍNDICE STRANEXO",
+      accueilTitle: "¿Cuál es el nivel de madurez de tus flujos internacionales?",
+      accueilLead: "En 5 minutos, obtené un primer índice de madurez de tus flujos internacionales, sobre 5 dimensiones clave: transporte, aduana, incoterms, proveedores y organización.",
+      metaDuration: "cronómetro",
+      metaQuestions: "preguntas",
+      metaIndex: "índice numérico",
+      btnStart: "Iniciar mi diagnóstico",
+
+      presentationTag: "CÓMO FUNCIONA",
+      presentationTitle: "Un diagnóstico express en 5 pilares",
+      presentationText: "Para cada pilar, 6 preguntas cerradas. Respondé con la opción más cercana a tu realidad actual: Sí, En gran parte, Parcialmente, o No.",
+      presentationNote: "Al finalizar el diagnóstico, obtenés un Índice STRANEXO sobre 100 junto con un nivel de madurez, y recibís tus resultados por email.",
+      btnBack: "Volver",
+      btnBegin: "Comenzar",
+
+      entrepriseTag: "TUS DATOS",
+      entrepriseTitle: "Algunos datos antes de empezar",
+      entrepriseNote: "Esta información nos permite enviarte tus resultados por email y, si lo deseás, contactarte más adelante.",
+      labelEntreprise: "Nombre de la empresa *",
+      labelSecteur: "Sector de actividad",
+      labelContact: "Nombre y apellido *",
+      labelEmail: "Email profesional *",
+      labelTelephone: "Teléfono",
+      consentText: "Acepto que mis datos y respuestas sean utilizados por STRANEXO para enviarme mis resultados y contactarme al respecto.",
+      btnStartDiag: "Comenzar el diagnóstico",
+      restartLink: "Reiniciar el diagnóstico desde cero",
+
+      pillarTagPrefix: "PILAR",
+      btnPrevious: "Anterior",
+      btnContinue: "Continuar",
+
+      calculTitle: "Calculando tu Índice STRANEXO...",
+      calculNote: "Análisis de tus respuestas sobre los 5 pilares.",
+
+      resultsTag: "TUS RESULTADOS",
+      resultsTitle: "Tu Índice STRANEXO",
+      ctaTag: "¿Y AHORA?",
+      ctaTitle: "Pasá del diagnóstico al mapeo de tus flujos",
+      ctaText: "El Índice STRANEXO ofrece una primera medición. Un diagnóstico en profundidad permite identificar con precisión tus puntos débiles y tus palancas de rendimiento.",
+      ctaButton: "Coordinar una charla con STRANEXO",
+      ctaLink: "index.html#contact",
+      restartDiagLink: "Rehacer el diagnóstico",
+      emailSentPrefix: "Tus resultados fueron enviados por email a ",
+      emailErrorText: "El envío automático por email tuvo un problema. Podés contactarnos directamente a axel@stranexo.com para recibir tus resultados.",
+      radarLabel: "Índice por pilar",
+      stepLabel: "Paso",
+      scoreUnit: "/100"
+    }
+  };
+
+  var T = UI_STRINGS[LANG];
+
   /* ---------- MOTEUR DE CALCUL ---------- */
 
   function computePillarScore(answers) {
-    // answers: tableau de 6 valeurs (0 à 3), -1 pour "Je ne sais pas", null si pas répondu
-    // "Je ne sais pas" compte comme 0 point, au même titre que "Non" : ne pas savoir
+    // answers: tableau de 6 valeurs (0 à 3), -1 pour "Je ne sais pas"/"No lo sé", null si pas répondu
+    // Une réponse "Je ne sais pas" compte comme 0 point, au même titre qu'un "Non" : ne pas savoir
     // révèle, comme un "Non", un manque de visibilité sur ce sujet.
     var sum = answers.reduce(function (a, b) {
       var contribution = (b === null || b < 0) ? 0 : b;
@@ -26,9 +140,9 @@
 
   function getMaturityLevel(score) {
     for (var i = 0; i < STRANEXO_LEVELS.length; i++) {
-      if (score <= STRANEXO_LEVELS[i].max) return STRANEXO_LEVELS[i].label;
+      if (score <= STRANEXO_LEVELS[i].max) return STRANEXO_LEVELS[i];
     }
-    return STRANEXO_LEVELS[STRANEXO_LEVELS.length - 1].label;
+    return STRANEXO_LEVELS[STRANEXO_LEVELS.length - 1];
   }
 
   function answerLabel(value) {
@@ -38,7 +152,7 @@
 
   /* ---------- ÉTAT ---------- */
 
-  var STORAGE_KEY = "stranexo_indice_state_v1";
+  var STORAGE_KEY = "stranexo_indice_state_v1_" + LANG;
 
   function freshState() {
     var s = {
@@ -95,7 +209,7 @@
     progressWrap.hidden = false;
     var pct = Math.round((step / TOTAL_STEPS) * 100);
     progressFill.style.width = pct + "%";
-    progressLabel.textContent = "Étape " + step + " / " + TOTAL_STEPS;
+    progressLabel.textContent = T.stepLabel + " " + step + " / " + TOTAL_STEPS;
   }
 
   function scrollToTop() {
@@ -111,15 +225,15 @@
     setProgress(0);
     root.innerHTML =
       '<div class="indice-screen indice-intro">' +
-        '<span class="section-tag">INDICE STRANEXO</span>' +
-        '<h1>Quel est le niveau de maturité de vos flux internationaux ?</h1>' +
-        '<p class="indice-lead">En 5 minutes, obtenez un premier indice de maturité de vos flux internationaux, sur 5 dimensions clés : gouvernance, achats, logistique, douane et pilotage par la donnée.</p>' +
+        '<span class="section-tag">' + T.accueilTag + '</span>' +
+        '<h1>' + T.accueilTitle + '</h1>' +
+        '<p class="indice-lead">' + T.accueilLead + '</p>' +
         '<div class="indice-meta-row">' +
-          '<div class="indice-meta"><strong>5 min</strong><span>chrono</span></div>' +
-          '<div class="indice-meta"><strong>30</strong><span>questions</span></div>' +
-          '<div class="indice-meta"><strong>/100</strong><span>indice chiffré</span></div>' +
+          '<div class="indice-meta"><strong>5 min</strong><span>' + T.metaDuration + '</span></div>' +
+          '<div class="indice-meta"><strong>30</strong><span>' + T.metaQuestions + '</span></div>' +
+          '<div class="indice-meta"><strong>/100</strong><span>' + T.metaIndex + '</span></div>' +
         '</div>' +
-        '<button type="button" class="btn-primary" id="btn-start">Démarrer mon diagnostic</button>' +
+        '<button type="button" class="btn-primary" id="btn-start">' + T.btnStart + '</button>' +
       '</div>';
     document.getElementById("btn-start").addEventListener("click", function () {
       state.screen = "presentation";
@@ -139,14 +253,14 @@
 
     root.innerHTML =
       '<div class="indice-screen indice-presentation">' +
-        '<span class="section-tag">COMMENT ÇA MARCHE</span>' +
-        '<h2>Un diagnostic express en 5 piliers</h2>' +
-        '<p>Pour chaque pilier, 6 questions fermées. Répondez avec la réponse la plus proche de votre réalité actuelle : Oui, En grande partie, Partiellement, ou Non.</p>' +
+        '<span class="section-tag">' + T.presentationTag + '</span>' +
+        '<h2>' + T.presentationTitle + '</h2>' +
+        '<p>' + T.presentationText + '</p>' +
         '<ul class="feature-list indice-pillars-list">' + pillarsList + '</ul>' +
-        '<p class="indice-note">À l\'issue du diagnostic, vous obtenez un Indice STRANEXO sur 100 ainsi qu\'un niveau de maturité, et vous recevez vos résultats par email.</p>' +
+        '<p class="indice-note">' + T.presentationNote + '</p>' +
         '<div class="indice-nav-buttons">' +
-          '<button type="button" class="btn-secondary" id="btn-back-accueil">Retour</button>' +
-          '<button type="button" class="btn-primary" id="btn-start-entreprise">Commencer</button>' +
+          '<button type="button" class="btn-secondary" id="btn-back-accueil">' + T.btnBack + '</button>' +
+          '<button type="button" class="btn-primary" id="btn-start-entreprise">' + T.btnBegin + '</button>' +
         '</div>' +
       '</div>';
 
@@ -171,40 +285,40 @@
     var c = state.company;
     root.innerHTML =
       '<div class="indice-screen indice-entreprise">' +
-        '<span class="section-tag">VOS COORDONNÉES</span>' +
-        '<h2>Quelques informations avant de commencer</h2>' +
-        '<p class="indice-note">Ces informations nous permettent de vous adresser vos résultats par email et, si vous le souhaitez, d\'échanger avec vous ensuite.</p>' +
+        '<span class="section-tag">' + T.entrepriseTag + '</span>' +
+        '<h2>' + T.entrepriseTitle + '</h2>' +
+        '<p class="indice-note">' + T.entrepriseNote + '</p>' +
         '<form id="form-entreprise" class="indice-form" novalidate>' +
           '<div class="indice-field">' +
-            '<label for="f-entreprise">Nom de l\'entreprise *</label>' +
+            '<label for="f-entreprise">' + T.labelEntreprise + '</label>' +
             '<input type="text" id="f-entreprise" name="entreprise" required value="' + c.entreprise + '">' +
           '</div>' +
           '<div class="indice-field">' +
-            '<label for="f-secteur">Secteur d\'activité</label>' +
+            '<label for="f-secteur">' + T.labelSecteur + '</label>' +
             '<input type="text" id="f-secteur" name="secteur" value="' + c.secteur + '">' +
           '</div>' +
           '<div class="indice-field">' +
-            '<label for="f-contact">Nom et prénom *</label>' +
+            '<label for="f-contact">' + T.labelContact + '</label>' +
             '<input type="text" id="f-contact" name="contact" required value="' + c.contact + '">' +
           '</div>' +
           '<div class="indice-field">' +
-            '<label for="f-email">Email professionnel *</label>' +
+            '<label for="f-email">' + T.labelEmail + '</label>' +
             '<input type="email" id="f-email" name="email" required value="' + c.email + '">' +
           '</div>' +
           '<div class="indice-field">' +
-            '<label for="f-telephone">Téléphone</label>' +
+            '<label for="f-telephone">' + T.labelTelephone + '</label>' +
             '<input type="tel" id="f-telephone" name="telephone" value="' + c.telephone + '">' +
           '</div>' +
           '<label class="indice-consent">' +
             '<input type="checkbox" id="f-consent" required>' +
-            '<span>J\'accepte que mes données et mes réponses soient utilisées par STRANEXO pour m\'adresser mes résultats et me recontacter à ce sujet.</span>' +
+            '<span>' + T.consentText + '</span>' +
           '</label>' +
           '<div class="indice-nav-buttons">' +
-            '<button type="button" class="btn-secondary" id="btn-back-presentation">Retour</button>' +
-            '<button type="submit" class="btn-primary">Commencer le diagnostic</button>' +
+            '<button type="button" class="btn-secondary" id="btn-back-presentation">' + T.btnBack + '</button>' +
+            '<button type="submit" class="btn-primary">' + T.btnStartDiag + '</button>' +
           '</div>' +
         '</form>' +
-        '<p class="indice-restart-link"><a href="#" id="btn-restart">Recommencer le diagnostic à zéro</a></p>' +
+        '<p class="indice-restart-link"><a href="#" id="btn-restart">' + T.restartLink + '</a></p>' +
       '</div>';
 
     document.getElementById("btn-back-presentation").addEventListener("click", function () {
@@ -268,14 +382,14 @@
 
     root.innerHTML =
       '<div class="indice-screen indice-pillar">' +
-        '<span class="section-tag">PILIER ' + (i + 1) + ' / ' + STRANEXO_PILLARS.length + '</span>' +
+        '<span class="section-tag">' + T.pillarTagPrefix + ' ' + (i + 1) + ' / ' + STRANEXO_PILLARS.length + '</span>' +
         '<h2>' + pillar.name + '</h2>' +
         '<div class="indice-questions">' + questionsHtml + '</div>' +
         '<div class="indice-nav-buttons">' +
-          '<button type="button" class="btn-secondary" id="btn-pillar-back">Précédent</button>' +
-          '<button type="button" class="btn-primary" id="btn-pillar-next" disabled>Continuer</button>' +
+          '<button type="button" class="btn-secondary" id="btn-pillar-back">' + T.btnPrevious + '</button>' +
+          '<button type="button" class="btn-primary" id="btn-pillar-next" disabled>' + T.btnContinue + '</button>' +
         '</div>' +
-        '<p class="indice-restart-link"><a href="#" id="btn-restart">Recommencer le diagnostic à zéro</a></p>' +
+        '<p class="indice-restart-link"><a href="#" id="btn-restart">' + T.restartLink + '</a></p>' +
       '</div>';
 
     var nextBtn = document.getElementById("btn-pillar-next");
@@ -343,8 +457,8 @@
     root.innerHTML =
       '<div class="indice-screen indice-calcul">' +
         '<div class="indice-spinner"></div>' +
-        '<h2>Calcul de votre Indice STRANEXO...</h2>' +
-        '<p class="indice-note">Analyse de vos réponses sur les 5 piliers.</p>' +
+        '<h2>' + T.calculTitle + '</h2>' +
+        '<p class="indice-note">' + T.calculNote + '</p>' +
       '</div>';
 
     setTimeout(function () {
@@ -364,8 +478,9 @@
       return computePillarScore(state.answers[p.id]);
     });
     var globalIndex = computeGlobalIndex(pillarScores);
-    var level = getMaturityLevel(globalIndex);
-    var levelSlug = level.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/\s+/g, "-");
+    var levelInfo = getMaturityLevel(globalIndex);
+    var level = levelInfo.label;
+    var levelSlug = levelInfo.key;
 
     var pillarsHtml = STRANEXO_PILLARS.map(function (p, i) {
       var score = pillarScores[i];
@@ -384,8 +499,8 @@
 
     root.innerHTML =
       '<div class="indice-screen indice-resultats">' +
-        '<span class="section-tag">VOS RÉSULTATS</span>' +
-        '<h2>Votre Indice STRANEXO</h2>' +
+        '<span class="section-tag">' + T.resultsTag + '</span>' +
+        '<h2>' + T.resultsTitle + '</h2>' +
 
         '<div class="indice-score-block" data-level="' + levelSlug + '">' +
           '<div class="indice-score-number" id="indice-score-number">0</div>' +
@@ -406,13 +521,13 @@
         '<div class="indice-email-status" id="indice-email-status"></div>' +
 
         '<div class="cta-box indice-final-cta">' +
-          '<span class="section-tag">ET MAINTENANT ?</span>' +
-          '<h2>Passez du constat à la cartographie de vos flux</h2>' +
-          '<p>L\'Indice STRANEXO donne une première mesure. Un diagnostic approfondi permet d\'identifier précisément vos fragilités et vos leviers de performance.</p>' +
-          '<a href="index.html#contact" class="btn-primary">Planifier un échange avec STRANEXO</a>' +
+          '<span class="section-tag">' + T.ctaTag + '</span>' +
+          '<h2>' + T.ctaTitle + '</h2>' +
+          '<p>' + T.ctaText + '</p>' +
+          '<a href="' + T.ctaLink + '" class="btn-primary">' + T.ctaButton + '</a>' +
         '</div>' +
 
-        '<p class="indice-restart-link"><a href="#" id="btn-restart">Refaire le diagnostic</a></p>' +
+        '<p class="indice-restart-link"><a href="#" id="btn-restart">' + T.restartDiagLink + '</a></p>' +
       '</div>';
 
     var restartLink = document.getElementById("btn-restart");
@@ -429,7 +544,7 @@
     var statusEl = document.getElementById("indice-email-status");
     if (state.emailSent) {
       if (statusEl) {
-        statusEl.textContent = "Vos résultats vous ont été envoyés par email à " + state.company.email + ".";
+        statusEl.textContent = T.emailSentPrefix + state.company.email + ".";
         statusEl.classList.add("is-success");
       }
     } else {
@@ -467,7 +582,7 @@
       data: {
         labels: STRANEXO_PILLARS.map(function (p) { return p.name; }),
         datasets: [{
-          label: "Indice par pilier",
+          label: T.radarLabel,
           data: pillarScores,
           backgroundColor: "rgba(201,162,39,0.20)",
           borderColor: "#C9A227",
@@ -498,11 +613,16 @@
 
   /* ---------- ENVOI EMAIL ----------
      - Notification interne complète (toutes les réponses) -> axel@stranexo.com via formsubmit.co
-     - Confirmation visuelle brandée STRANEXO -> l'entreprise via EmailJS
+       Toujours en français, quelle que soit la langue du visiteur : c'est Axel qui la lit,
+       ça garde tous ses leads lisibles de la même façon dans sa boîte.
+     - Confirmation visuelle brandée STRANEXO -> l'entreprise via EmailJS, dans sa langue.
   ====================================================== */
 
   var EMAILJS_SERVICE_ID = "service_rsogpte";
-  var EMAILJS_TEMPLATE_ID = "template_0e27s8c";
+  var EMAILJS_TEMPLATE_ID_FR = "template_0e27s8c";
+  var EMAILJS_TEMPLATE_ID_ES = "template_d8500xl";
+
+  var EMAILJS_TEMPLATE_ID = LANG === "es" ? EMAILJS_TEMPLATE_ID_ES : EMAILJS_TEMPLATE_ID_FR;
 
   function sendInternalNotification(pillarScores, globalIndex, level) {
     var detail = STRANEXO_PILLARS.map(function (p, i) {
@@ -517,6 +637,7 @@
       _template: "box",
       _captcha: "false",
       email: state.company.email,
+      "Langue": LANG === "es" ? "Espagnol (Argentine)" : "Français",
       "Entreprise": state.company.entreprise,
       "Secteur": state.company.secteur || "-",
       "Contact": state.company.contact,
@@ -560,6 +681,9 @@
     if (typeof emailjs === "undefined") {
       return Promise.reject(new Error("EmailJS non chargé"));
     }
+    if (!EMAILJS_TEMPLATE_ID || EMAILJS_TEMPLATE_ID.indexOf("A_COMPLETER") !== -1) {
+      return Promise.reject(new Error("Template EmailJS manquant pour la langue: " + LANG));
+    }
     return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
       to_email: state.company.email,
       to_name: state.company.contact,
@@ -589,10 +713,10 @@
       if (!statusEl) return;
 
       if (companyOk) {
-        statusEl.textContent = "Vos résultats ont été envoyés par email à " + state.company.email + ".";
+        statusEl.textContent = T.emailSentPrefix + state.company.email + ".";
         statusEl.classList.add("is-success");
       } else {
-        statusEl.textContent = "L'envoi automatique par email a rencontré un problème. Vous pouvez nous contacter directement à axel@stranexo.com pour recevoir vos résultats.";
+        statusEl.textContent = T.emailErrorText;
         statusEl.classList.add("is-error");
       }
     });
