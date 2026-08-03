@@ -9,8 +9,13 @@
   /* ---------- MOTEUR DE CALCUL ---------- */
 
   function computePillarScore(answers) {
-    // answers: tableau de 6 valeurs (0 à 3), null si pas répondu
-    var sum = answers.reduce(function (a, b) { return a + (b || 0); }, 0);
+    // answers: tableau de 6 valeurs (0 à 3), -1 pour "Je ne sais pas", null si pas répondu
+    // "Je ne sais pas" compte comme 0 point, au même titre que "Non" : ne pas savoir
+    // révèle, comme un "Non", un manque de visibilité sur ce sujet.
+    var sum = answers.reduce(function (a, b) {
+      var contribution = (b === null || b < 0) ? 0 : b;
+      return a + contribution;
+    }, 0);
     return Math.round((sum / 18) * 100);
   }
 
@@ -33,16 +38,46 @@
 
   /* ---------- ÉTAT ---------- */
 
-  var state = {
-    screen: "accueil",
-    pillarIndex: 0,
-    company: { entreprise: "", secteur: "", contact: "", email: "", telephone: "" },
-    answers: {}
-  };
+  var STORAGE_KEY = "stranexo_indice_state_v1";
 
-  STRANEXO_PILLARS.forEach(function (p) {
-    state.answers[p.id] = [null, null, null, null, null, null];
-  });
+  function freshState() {
+    var s = {
+      screen: "accueil",
+      pillarIndex: 0,
+      company: { entreprise: "", secteur: "", contact: "", email: "", telephone: "" },
+      answers: {},
+      emailSent: false
+    };
+    STRANEXO_PILLARS.forEach(function (p) {
+      s.answers[p.id] = [null, null, null, null, null, null];
+    });
+    return s;
+  }
+
+  function saveState() {
+    try {
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (e) {
+      // stockage indisponible (navigation privée, etc.) : on continue sans persistance
+    }
+  }
+
+  function loadState() {
+    try {
+      var raw = sessionStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function clearState() {
+    try {
+      sessionStorage.removeItem(STORAGE_KEY);
+    } catch (e) {}
+  }
+
+  var state = freshState();
 
   var root = document.getElementById("indice-screen");
   var progressWrap = document.getElementById("indice-progress");
@@ -88,6 +123,7 @@
       '</div>';
     document.getElementById("btn-start").addEventListener("click", function () {
       state.screen = "presentation";
+      saveState();
       renderPresentation();
       scrollToTop();
     });
@@ -116,11 +152,13 @@
 
     document.getElementById("btn-back-accueil").addEventListener("click", function () {
       state.screen = "accueil";
+      saveState();
       renderAccueil();
       scrollToTop();
     });
     document.getElementById("btn-start-entreprise").addEventListener("click", function () {
       state.screen = "entreprise";
+      saveState();
       renderEntreprise();
       scrollToTop();
     });
@@ -166,12 +204,19 @@
             '<button type="submit" class="btn-primary">Commencer le diagnostic</button>' +
           '</div>' +
         '</form>' +
+        '<p class="indice-restart-link"><a href="#" id="btn-restart">Recommencer le diagnostic à zéro</a></p>' +
       '</div>';
 
     document.getElementById("btn-back-presentation").addEventListener("click", function () {
       state.screen = "presentation";
+      saveState();
       renderPresentation();
       scrollToTop();
+    });
+
+    document.getElementById("btn-restart").addEventListener("click", function (e) {
+      e.preventDefault();
+      restartDiagnostic();
     });
 
     document.getElementById("form-entreprise").addEventListener("submit", function (e) {
@@ -186,9 +231,17 @@
 
       state.pillarIndex = 0;
       state.screen = "pillar";
+      saveState();
       renderPillar();
       scrollToTop();
     });
+  }
+
+  function restartDiagnostic() {
+    clearState();
+    state = freshState();
+    renderAccueil();
+    scrollToTop();
   }
 
   /* ---------- ÉCRAN : PILIER (6 questions) ---------- */
@@ -222,6 +275,7 @@
           '<button type="button" class="btn-secondary" id="btn-pillar-back">Précédent</button>' +
           '<button type="button" class="btn-primary" id="btn-pillar-next" disabled>Continuer</button>' +
         '</div>' +
+        '<p class="indice-restart-link"><a href="#" id="btn-restart">Recommencer le diagnostic à zéro</a></p>' +
       '</div>';
 
     var nextBtn = document.getElementById("btn-pillar-next");
@@ -243,15 +297,25 @@
         btn.classList.add("is-active");
 
         checkComplete();
+        saveState();
       });
+    });
+
+    document.getElementById("btn-restart").addEventListener("click", function (e) {
+      e.preventDefault();
+      restartDiagnostic();
     });
 
     document.getElementById("btn-pillar-back").addEventListener("click", function () {
       if (i === 0) {
         state.screen = "entreprise";
-        renderEntreprise();
       } else {
         state.pillarIndex = i - 1;
+      }
+      saveState();
+      if (i === 0) {
+        renderEntreprise();
+      } else {
         renderPillar();
       }
       scrollToTop();
@@ -261,9 +325,11 @@
       if (nextBtn.disabled) return;
       if (i < STRANEXO_PILLARS.length - 1) {
         state.pillarIndex = i + 1;
+        saveState();
         renderPillar();
       } else {
         state.screen = "calcul";
+        saveState();
         renderCalcul();
       }
       scrollToTop();
@@ -283,6 +349,7 @@
 
     setTimeout(function () {
       state.screen = "resultats";
+      saveState();
       renderResultats();
       scrollToTop();
     }, 1400);
@@ -348,7 +415,16 @@
 
     animateScore(globalIndex);
     renderRadar(pillarScores);
-    sendResultsByEmail(pillarScores, globalIndex, level);
+
+    var statusEl = document.getElementById("indice-email-status");
+    if (state.emailSent) {
+      if (statusEl) {
+        statusEl.textContent = "Vos résultats vous ont été envoyés par email à " + state.company.email + ".";
+        statusEl.classList.add("is-success");
+      }
+    } else {
+      sendResultsByEmail(pillarScores, globalIndex, level);
+    }
   }
 
   function animateScore(target) {
@@ -458,6 +534,8 @@
     })
       .then(function (res) {
         if (!res.ok) throw new Error("send failed");
+        state.emailSent = true;
+        saveState();
         if (statusEl) {
           statusEl.textContent = "Vos résultats ont été envoyés par email à " + state.company.email + ".";
           statusEl.classList.add("is-success");
@@ -473,8 +551,26 @@
 
   /* ---------- INIT ---------- */
 
+  var SCREEN_RENDERERS = {
+    accueil: renderAccueil,
+    presentation: renderPresentation,
+    entreprise: renderEntreprise,
+    pillar: renderPillar,
+    calcul: renderResultats, // un rechargement pendant le calcul affiche directement les résultats
+    resultats: renderResultats
+  };
+
   document.addEventListener("DOMContentLoaded", function () {
     if (!root) return;
-    renderAccueil();
+
+    var saved = loadState();
+    if (saved && saved.screen && saved.screen !== "accueil") {
+      state = saved;
+      if (state.screen === "calcul") state.screen = "resultats";
+      var renderFn = SCREEN_RENDERERS[state.screen] || renderAccueil;
+      renderFn();
+    } else {
+      renderAccueil();
+    }
   });
 })();

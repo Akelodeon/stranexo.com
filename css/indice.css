@@ -187,6 +187,21 @@
     border-color:var(--gold);
 }
 
+.indice-restart-link{
+    text-align:center;
+    margin-top:24px;
+}
+
+.indice-restart-link a{
+    font-size:13px;
+    color:#94A3B8;
+    text-decoration:underline;
+}
+
+.indice-restart-link a:hover{
+    color:var(--navy);
+}
+
 .indice-consent{
     font-size:14px;
     display:flex;
@@ -239,6 +254,20 @@
     background:var(--navy);
     border-color:var(--navy);
     color:var(--white);
+}
+
+.indice-answer-btn[data-value="-1"]{
+    border-style:dashed;
+    color:#94A3B8;
+    font-style:italic;
+}
+
+.indice-answer-btn[data-value="-1"].is-active{
+    background:#64748B;
+    border-color:#64748B;
+    border-style:dashed;
+    color:var(--white);
+    font-style:italic;
 }
 
 /* ---------- Calcul ---------- */
