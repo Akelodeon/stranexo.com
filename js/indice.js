@@ -536,7 +536,27 @@
     });
   }
 
-  function sendCompanyConfirmation(globalIndex, level) {
+  function buildPillarsEmailHtml(pillarScores) {
+    return STRANEXO_PILLARS.map(function (p, i) {
+      var score = pillarScores[i];
+      var text = score >= 65 ? p.textHigh : p.textLow;
+      return (
+        '<tr><td style="padding:0 36px 16px;">' +
+          '<table role="presentation" width="100%" style="background:#F8FAFC;border:1px solid #E5E7EB;border-radius:12px;">' +
+            '<tr><td style="padding:18px 22px;">' +
+              '<table role="presentation" width="100%"><tr>' +
+                '<td style="font-size:15px;font-weight:700;color:#0F172A;">' + p.name + '</td>' +
+                '<td style="text-align:right;font-size:17px;font-weight:800;color:#C9A227;white-space:nowrap;">' + score + '<span style="font-size:12px;color:#94A3B8;font-weight:600;"> /100</span></td>' +
+              '</tr></table>' +
+              '<p style="margin:10px 0 0;font-size:14px;color:#334155;line-height:1.6;">' + text + '</p>' +
+            '</td></tr>' +
+          '</table>' +
+        '</td></tr>'
+      );
+    }).join("");
+  }
+
+  function sendCompanyConfirmation(pillarScores, globalIndex, level) {
     if (typeof emailjs === "undefined") {
       return Promise.reject(new Error("EmailJS non chargé"));
     }
@@ -545,7 +565,8 @@
       to_name: state.company.contact,
       entreprise: state.company.entreprise,
       score: globalIndex,
-      level: level
+      level: level,
+      pillars_html: buildPillarsEmailHtml(pillarScores)
     });
   }
 
@@ -554,7 +575,7 @@
 
     Promise.allSettled([
       sendInternalNotification(pillarScores, globalIndex, level),
-      sendCompanyConfirmation(globalIndex, level)
+      sendCompanyConfirmation(pillarScores, globalIndex, level)
     ]).then(function (results) {
       var internalOk = results[0].status === "fulfilled";
       var companyOk = results[1].status === "fulfilled";
