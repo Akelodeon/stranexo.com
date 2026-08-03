@@ -515,7 +515,11 @@
       _subject: "Indice STRANEXO - " + state.company.entreprise + " - " + globalIndex + "/100 (" + level + ")",
       _template: "box",
       _captcha: "false",
+      // _autoresponse ne fonctionne pas ici : formsubmit.co désactive cette fonction dès que le
+      // formulaire est envoyé en AJAX et/ou avec le captcha désactivé (documenté officiellement).
+      // On utilise donc _cc pour garantir que l'entreprise reçoive bien une copie du résultat.
       _autoresponse: buildAutoresponse(globalIndex, level),
+      _cc: state.company.email,
       email: state.company.email,
       "Entreprise": state.company.entreprise,
       "Secteur": state.company.secteur || "-",
