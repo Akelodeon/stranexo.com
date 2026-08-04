@@ -602,44 +602,56 @@
 
   function renderRadar(pillarScores) {
     var canvas = document.getElementById("indice-radar");
-    if (!canvas || typeof Chart === "undefined") return;
+    var wrap = canvas && canvas.closest(".indice-radar-wrap");
+
+    if (!canvas || typeof Chart === "undefined") {
+      // Chart.js n'a pas pu se charger (bloqueur, CDN indisponible, etc.) :
+      // on masque l'emplacement réservé plutôt que de laisser un grand vide.
+      if (wrap) wrap.hidden = true;
+      return;
+    }
 
     if (radarChartInstance) {
       radarChartInstance.destroy();
     }
 
-    radarChartInstance = new Chart(canvas.getContext("2d"), {
-      type: "radar",
-      data: {
-        labels: STRANEXO_PILLARS.map(function (p) { return p.name; }),
-        datasets: [{
-          label: T.radarLabel,
-          data: pillarScores,
-          backgroundColor: "rgba(201,162,39,0.20)",
-          borderColor: "#C9A227",
-          borderWidth: 2,
-          pointBackgroundColor: "#0F172A",
-          pointRadius: 4
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: true,
-        scales: {
-          r: {
-            min: 0,
-            max: 100,
-            ticks: { stepSize: 25, backdropColor: "transparent", color: "#94A3B8" },
-            grid: { color: "#E5E7EB" },
-            angleLines: { color: "#E5E7EB" },
-            pointLabels: { color: "#0F172A", font: { size: 12, weight: "600" } }
-          }
+    try {
+      radarChartInstance = new Chart(canvas.getContext("2d"), {
+        type: "radar",
+        data: {
+          labels: STRANEXO_PILLARS.map(function (p) { return p.name; }),
+          datasets: [{
+            label: T.radarLabel,
+            data: pillarScores,
+            backgroundColor: "rgba(201,162,39,0.20)",
+            borderColor: "#C9A227",
+            borderWidth: 2,
+            pointBackgroundColor: "#0F172A",
+            pointRadius: 4
+          }]
         },
-        plugins: {
-          legend: { display: false }
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          scales: {
+            r: {
+              min: 0,
+              max: 100,
+              ticks: { stepSize: 25, backdropColor: "transparent", color: "#94A3B8" },
+              grid: { color: "#E5E7EB" },
+              angleLines: { color: "#E5E7EB" },
+              pointLabels: { color: "#0F172A", font: { size: 12, weight: "600" } }
+            }
+          },
+          plugins: {
+            legend: { display: false }
+          }
         }
-      }
-    });
+      });
+      if (wrap) wrap.hidden = false;
+    } catch (err) {
+      if (wrap) wrap.hidden = true;
+    }
   }
 
   /* ---------- ENVOI EMAIL ----------
