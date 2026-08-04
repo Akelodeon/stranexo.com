@@ -41,6 +41,7 @@
       labelSecteur: "Secteur d'activité",
       labelContact: "Nom et prénom *",
       labelEmail: "Email professionnel *",
+      emailHint: "Votre résultat vous sera envoyé à cette adresse : vérifiez qu'elle soit correcte.",
       labelTelephone: "Téléphone",
       consentText: "J'accepte que mes données et mes réponses soient utilisées par STRANEXO pour m'adresser mes résultats et me recontacter à ce sujet.",
       formErrorEmail: "Merci de renseigner une adresse email valide.",
@@ -93,6 +94,7 @@
       labelSecteur: "Sector de actividad",
       labelContact: "Nombre y apellido *",
       labelEmail: "Email profesional *",
+      emailHint: "Tu resultado se enviará a esta dirección: verificá que sea correcta.",
       labelTelephone: "Teléfono",
       consentText: "Acepto que mis datos y respuestas sean utilizados por STRANEXO para enviarme mis resultados y contactarme al respecto.",
       formErrorEmail: "Por favor ingresá una dirección de email válida.",
@@ -310,6 +312,7 @@
           '<div class="indice-field">' +
             '<label for="f-email">' + T.labelEmail + '</label>' +
             '<input type="email" id="f-email" name="email" required value="' + c.email + '">' +
+            '<span class="indice-field-hint">' + T.emailHint + '</span>' +
           '</div>' +
           '<div class="indice-field">' +
             '<label for="f-telephone">' + T.labelTelephone + '</label>' +
