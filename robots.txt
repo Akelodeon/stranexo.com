@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /en/
+
+Sitemap: https://www.stranexo.com/sitemap.xml
