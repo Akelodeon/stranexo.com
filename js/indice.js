@@ -9,7 +9,8 @@
 
   /* ---------- LANGUE ---------- */
 
-  var LANG = (document.documentElement.lang || "fr").slice(0, 2) === "es" ? "es" : "fr";
+  var LANG = (document.documentElement.lang || "fr").slice(0, 2);
+  if (LANG !== "es" && LANG !== "en") LANG = "fr";
   var CONTENT = STRANEXO_CONTENT[LANG];
 
   var STRANEXO_PILLARS = CONTENT.pillars;
@@ -122,6 +123,59 @@
       emailErrorText: "El envío automático por email tuvo un problema. Podés contactarnos directamente a axel@stranexo.com para recibir tus resultados.",
       radarLabel: "Índice por pilar",
       stepLabel: "Paso",
+      scoreUnit: "/100"
+    },
+    en: {
+      accueilTag: "STRANEXO INDEX",
+      accueilTitle: "How mature are your international flows?",
+      accueilLead: "In 5 minutes, get a first maturity index for your international flows, across 5 key dimensions: transport, customs, Incoterms, suppliers and organization.",
+      metaDuration: "timed",
+      metaQuestions: "questions",
+      metaIndex: "numeric score",
+      btnStart: "Start my diagnostic",
+
+      presentationTag: "HOW IT WORKS",
+      presentationTitle: "An express diagnostic across 5 pillars",
+      presentationText: "For each pillar, 6 closed questions. Answer with whichever option is closest to your current reality: Yes, Largely, Partially, or No.",
+      presentationNote: "At the end of the diagnostic, you get a STRANEXO Index out of 100 along with a maturity level, and you receive your results by email.",
+      btnBack: "Back",
+      btnBegin: "Start",
+
+      entrepriseTag: "YOUR DETAILS",
+      entrepriseTitle: "A few details before we start",
+      entrepriseNote: "This information lets us send you your results by email and, if you'd like, follow up with you afterward.",
+      labelEntreprise: "Company name *",
+      labelSecteur: "Industry",
+      labelContact: "Full name *",
+      labelEmail: "Business email *",
+      emailHint: "Your result will be sent to this address: please double-check it's correct.",
+      labelTelephone: "Phone",
+      consentText: "I agree that my data and answers may be used by STRANEXO to send me my results and follow up with me about them.",
+      formErrorEmail: "Please enter a valid email address.",
+      formErrorConsent: "Please accept the terms to continue.",
+      formErrorRequired: "Please fill in the required fields (*).",
+      btnStartDiag: "Start the diagnostic",
+      restartLink: "Restart the diagnostic from scratch",
+
+      pillarTagPrefix: "PILLAR",
+      btnPrevious: "Previous",
+      btnContinue: "Continue",
+
+      calculTitle: "Calculating your STRANEXO Index...",
+      calculNote: "Analyzing your answers across the 5 pillars.",
+
+      resultsTag: "YOUR RESULTS",
+      resultsTitle: "Your STRANEXO Index",
+      ctaTag: "WHAT'S NEXT?",
+      ctaTitle: "Move from a snapshot to a full map of your flows",
+      ctaText: "The STRANEXO Index gives you a first measurement. An in-depth diagnostic can precisely identify your weak points and your performance levers.",
+      ctaButton: "Schedule a call with STRANEXO",
+      ctaLink: "index.html#contact",
+      restartDiagLink: "Retake the diagnostic",
+      emailSentPrefix: "Your results have been emailed to ",
+      emailErrorText: "The automatic email failed to send. You can reach us directly at axel@stranexo.com to get your results.",
+      radarLabel: "Index by pillar",
+      stepLabel: "Step",
       scoreUnit: "/100"
     }
   };
@@ -662,10 +716,37 @@
   ====================================================== */
 
   var EMAILJS_SERVICE_ID = "service_rsogpte";
-  var EMAILJS_TEMPLATE_ID_FR = "template_0e27s8c";
-  var EMAILJS_TEMPLATE_ID_ES = "template_d8500xl";
+  var EMAILJS_TEMPLATE_ID = "template_0e27s8c";
 
-  var EMAILJS_TEMPLATE_ID = LANG === "es" ? EMAILJS_TEMPLATE_ID_ES : EMAILJS_TEMPLATE_ID_FR;
+  // Un seul template EmailJS pour les 3 langues : les textes fixes du mail
+  // (salutation, intro, titre piliers, conseil, CTA, tagline) sont passés en
+  // paramètres et affichés via {{...}} dans le template.
+  var EMAIL_TEXTS = {
+    fr: {
+      greeting: "Bonjour",
+      intro_text: "Voici les résultats du diagnostic express des flux internationaux de",
+      pillar_title: "Détail par pilier",
+      advice_text: "Seul un diagnostic approfondi avec STRANEXO permet d'expliquer précisément ces résultats et d'identifier les leviers d'action prioritaires pour votre organisation.",
+      cta_text: "Planifier un échange avec STRANEXO",
+      tagline: "Performance des Flux Internationaux"
+    },
+    en: {
+      greeting: "Hello",
+      intro_text: "Here are the results of the express diagnostic of",
+      pillar_title: "Breakdown by Pillar",
+      advice_text: "Only an in-depth diagnostic with STRANEXO can precisely explain these results and identify the priority levers for your organization.",
+      cta_text: "Schedule a call with STRANEXO",
+      tagline: "International Flow Performance"
+    },
+    es: {
+      greeting: "Hola",
+      intro_text: "Aquí están los resultados del diagnóstico exprés de los flujos internacionales de",
+      pillar_title: "Detalle por pilar",
+      advice_text: "Solo un diagnóstico en profundidad con STRANEXO permite explicar con precisión estos resultados e identificar las palancas de acción prioritarias para su organización.",
+      cta_text: "Agendar una reunión con STRANEXO",
+      tagline: "Rendimiento de los Flujos Internacionales"
+    }
+  };
 
   function sendInternalNotification(pillarScores, globalIndex, level) {
     var detail = STRANEXO_PILLARS.map(function (p, i) {
@@ -680,7 +761,7 @@
       _template: "box",
       _captcha: "false",
       email: state.company.email,
-      "Langue": LANG === "es" ? "Espagnol (Argentine)" : "Français",
+      "Langue": LANG === "es" ? "Espagnol (Argentine)" : (LANG === "en" ? "Anglais" : "Français"),
       "Entreprise": state.company.entreprise,
       "Secteur": state.company.secteur || "-",
       "Contact": state.company.contact,
@@ -724,17 +805,19 @@
     if (typeof emailjs === "undefined") {
       return Promise.reject(new Error("EmailJS non chargé"));
     }
-    if (!EMAILJS_TEMPLATE_ID || EMAILJS_TEMPLATE_ID.indexOf("A_COMPLETER") !== -1) {
-      return Promise.reject(new Error("Template EmailJS manquant pour la langue: " + LANG));
-    }
-    return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+    var texts = EMAIL_TEXTS[LANG] || EMAIL_TEXTS.fr;
+    var params = {
       to_email: state.company.email,
       to_name: state.company.contact,
       entreprise: state.company.entreprise,
       score: globalIndex,
       level: level,
       pillars_html: buildPillarsEmailHtml(pillarScores)
-    });
+    };
+    for (var key in texts) {
+      if (Object.prototype.hasOwnProperty.call(texts, key)) params[key] = texts[key];
+    }
+    return emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, params);
   }
 
   function sendResultsByEmail(pillarScores, globalIndex, level) {

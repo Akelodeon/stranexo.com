@@ -206,6 +206,104 @@ const STRANEXO_CONTENT = {
         textLow: "Tus respuestas ponen en evidencia que la organización de tus actividades internacionales constituye un punto de atención para tu empresa. Algunas situaciones parecen generar más incertidumbre que en las organizaciones más maduras. Este prediagnóstico no permite identificar las causas, pero revela un nivel de madurez que merece ser profundizado."
       }
     ]
+  },
+
+  en: {
+
+    answerScale: [
+      { value: 3, label: "Yes" },
+      { value: 2, label: "Largely" },
+      { value: 1, label: "Partially" },
+      { value: 0, label: "No" },
+      { value: -1, label: "I don't know" }
+    ],
+
+    conclusion: "Only an in-depth diagnostic with STRANEXO can pinpoint exactly why, and identify the priority levers for your organization.",
+
+    levels: [
+      { max: 39, key: "fragile", label: "Fragile" },
+      { max: 64, key: "en-developpement", label: "Developing" },
+      { max: 84, key: "maitrisee", label: "Under control" },
+      { max: 100, key: "performante", label: "High-performing" }
+    ],
+
+    pillars: [
+      {
+        id: "transport",
+        name: "International Transport",
+        measures: "The overall level of control over international transport operations and their impact on company performance.",
+        questions: [
+          "Does your organization have solid control over how its international transport operations unfold?",
+          "Do unexpected events tied to your international transport remain rare?",
+          "Does the way your international transport operations play out generally match what was expected?",
+          "Are your international transport costs generally under control?",
+          "Do transport delays or incidents have a limited impact on your business?",
+          "Do your transport partners' services fully meet your expectations?"
+        ],
+        textHigh: "Your answers reflect strong overall control of your international transport operations. This level of maturity is an asset for the reliability of your international trade.",
+        textLow: "Your answers show that international transport is a point of concern for your company. Some situations appear to have a bigger impact than expected on your operations. This pre-diagnostic can't pinpoint the root causes, but it reveals a level of maturity worth exploring further."
+      },
+      {
+        id: "douane",
+        name: "Customs",
+        measures: "The company's level of control over customs matters and their impact on the security and smoothness of its international operations.",
+        questions: [
+          "Do the customs formalities tied to your international operations run without major difficulty?",
+          "Does your company have solid control over the customs obligations that apply to its international trade?",
+          "Do customs audits or requests from authorities remain rare?",
+          "Do you consider your customs operations to be generally under control?",
+          "Do customs operations have a limited impact on your lead times and your business?",
+          "Do your customs partners' services fully meet your expectations?"
+        ],
+        textHigh: "Your answers reflect strong control over the customs matters tied to your international activity. This helps secure your trade and limit disruptions that could affect your operations.",
+        textLow: "Your answers show that customs matters are a point of concern for your company. Some elements may affect the smoothness or the security of your international operations. This pre-diagnostic can't pinpoint the root causes, but it reveals a level of maturity worth exploring further."
+      },
+      {
+        id: "incoterms",
+        name: "Incoterms",
+        measures: "The level of control over how responsibilities, costs and risks are allocated in international trade.",
+        questions: [
+          "Are responsibilities between your company and your partners (suppliers, customers, carriers) clearly established for each international operation?",
+          "Does your company fully understand the implications of the Incoterms used in its international trade?",
+          "Do the Incoterms used in your international trade effectively support your operations?",
+          "Do your international operations run without disputes or ambiguity over who's responsible for what?",
+          "Are Incoterms applied consistently across all of your international trade?",
+          "Do the Incoterms you use have a limited impact on your costs, lead times and risk?"
+        ],
+        textHigh: "Your answers reflect strong control over how responsibilities are allocated in your international trade. This helps secure your operations and limit areas of uncertainty between the different parties.",
+        textLow: "Your answers show that managing responsibilities in your international trade is a point of concern. Some situations may generate more uncertainty or impact on your operations. This pre-diagnostic can't pinpoint the root causes, but it reveals a level of maturity worth exploring further."
+      },
+      {
+        id: "fournisseurs",
+        name: "Suppliers",
+        measures: "The reliability of international suppliers and their impact on the performance of the company's flows.",
+        questions: [
+          "Is the performance of your international suppliers generally reliable and consistent?",
+          "Do your suppliers consistently meet announced lead times?",
+          "Is the information your suppliers provide (dates, quantities, documents…) reliable and available on time?",
+          "Does your international suppliers' performance stay stable, even when the unexpected happens?",
+          "Does your company have solid control over the challenges tied to its international suppliers?",
+          "Does your suppliers' performance have a limited impact on your costs, lead times or risk?"
+        ],
+        textHigh: "Your answers reflect strong reliability from your international suppliers. This helps stabilize your flows and limits disruptions that could affect your business.",
+        textLow: "Your answers show that your international suppliers are a point of concern for your company. Some situations appear to generate more uncertainty than in the most mature organizations. This pre-diagnostic can't pinpoint the root causes, but it reveals a level of maturity worth exploring further."
+      },
+      {
+        id: "organisation",
+        name: "Organization",
+        measures: "The level of organization of international activities and its impact on the smoothness of the company's operations.",
+        questions: [
+          "Do you consider your organization well suited to the demands of your international activities?",
+          "Do your international activities run smoothly on a day-to-day basis?",
+          "Do unexpected events tied to the organization of your international activities remain rare?",
+          "Does your organization let you effectively manage your international activities?",
+          "Does the organization of your international activities have a limited impact on your costs, lead times or risk?",
+          "Does your organization let you maintain continuity in your international activities?"
+        ],
+        textHigh: "Your answers reflect a strong level of organization in your international activities. This helps keep your operations smooth and limits disruptions that could affect your business.",
+        textLow: "Your answers show that the organization of your international activities is a point of concern for your company. Some situations appear to generate more uncertainty than in the most mature organizations. This pre-diagnostic can't pinpoint the root causes, but it reveals a level of maturity worth exploring further."
+      }
+    ]
   }
 
 };
