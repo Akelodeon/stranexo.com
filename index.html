@@ -510,20 +510,20 @@ Vous souhaitez optimiser vos flux internationaux, structurer votre Supply Chain 
 
 <div class="contact-right">
 
-<form action="https://formsubmit.co/axel@stranexo.com" method="POST">
+<form action="https://api.web3forms.com/submit" method="POST">
 
-<input type="hidden" name="_subject" value="Nouveau contact STRANEXO">
-<input type="hidden" name="_captcha" value="false">
-<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
-<input type="hidden" name="_next" value="https://www.stranexo.com/merci.html">
+<input type="hidden" name="access_key" value="f2586ca4-c5bc-46ea-aa6a-6ebb32c3a181">
+<input type="hidden" name="subject" value="Nouveau contact STRANEXO">
+<input type="hidden" name="from_name" value="Site STRANEXO">
+<input type="hidden" name="redirect" value="https://www.stranexo.com/merci.html">
 
 <input type="text" name="Nom" placeholder="Nom et prénom" required>
 
-<input type="email" name="Email" placeholder="Email professionnel" required>
+<input type="email" name="email" placeholder="Email professionnel" required>
 
 <input type="text" name="Entreprise" placeholder="Entreprise">
 
-<input type="tel" name="Téléphone" placeholder="Téléphone">
+<input type="tel" name="Telephone" placeholder="Téléphone">
 
 <textarea name="Message" placeholder="Décrivez brièvement votre besoin..." required></textarea>
 
@@ -533,6 +533,8 @@ Vous souhaitez optimiser vos flux internationaux, structurer votre Supply Chain 
 J'accepte que mes données soient utilisées par STRANEXO afin d'être recontacté concernant ma demande.
 </span>
 </label>
+
+<div class="h-captcha" data-captcha="true" data-lang="fr"></div>
 
 <button type="submit">
 Planifier un premier échange
@@ -620,6 +622,8 @@ class="linkedin-link">
 </footer>
 
 <script src="js/menu.js"></script>
+<script src="https://web3forms.com/client/script.js" async defer></script>
+<script src="js/contact-form.js" defer></script>
 
 </body></html>
 

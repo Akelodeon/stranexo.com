@@ -563,16 +563,16 @@ class="linkedin-link">
 
 <div class="contact-right">
 
-<form action="https://formsubmit.co/axel@stranexo.com" method="POST">
+<form action="https://api.web3forms.com/submit" method="POST">
 
-<input type="hidden" name="_subject" value="Request - Diagnostic & Audit (EN)">
-<input type="hidden" name="_captcha" value="false">
-<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
-<input type="hidden" name="_next" value="https://www.stranexo.com/en/thank-you.html">
+<input type="hidden" name="access_key" value="f2586ca4-c5bc-46ea-aa6a-6ebb32c3a181">
+<input type="hidden" name="subject" value="Request - Diagnostic & Audit (EN)">
+<input type="hidden" name="from_name" value="Site STRANEXO">
+<input type="hidden" name="redirect" value="https://www.stranexo.com/en/thank-you.html">
 
 <input type="text" name="Name" placeholder="Full name" required>
 
-<input type="email" name="Email" placeholder="Business email" required>
+<input type="email" name="email" placeholder="Business email" required>
 
 <input type="text" name="Company" placeholder="Company">
 
@@ -591,6 +591,8 @@ I agree that STRANEXO may use my data to follow up on my request.
 </span>
 
 </label>
+
+<div class="h-captcha" data-captcha="true" data-lang="en"></div>
 
 <button type="submit">
 
@@ -688,6 +690,8 @@ class="linkedin-link">
 </footer>
 
 <script src="../js/menu.js"></script>
+<script src="https://web3forms.com/client/script.js" async defer></script>
+<script src="../js/contact-form.js" defer></script>
 
 </body>
 </html>

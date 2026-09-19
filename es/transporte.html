@@ -614,16 +614,16 @@ class="linkedin-link">
 
 <div class="contact-right">
 
-<form action="https://formsubmit.co/axel@stranexo.com" method="POST">
+<form action="https://api.web3forms.com/submit" method="POST">
 
-<input type="hidden" name="_subject" value="Consulta - Transporte (ES)">
-<input type="hidden" name="_captcha" value="false">
-<input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
-<input type="hidden" name="_next" value="https://www.stranexo.com/es/gracias.html">
+<input type="hidden" name="access_key" value="f2586ca4-c5bc-46ea-aa6a-6ebb32c3a181">
+<input type="hidden" name="subject" value="Consulta - Transporte (ES)">
+<input type="hidden" name="from_name" value="Site STRANEXO">
+<input type="hidden" name="redirect" value="https://www.stranexo.com/es/gracias.html">
 
 <input type="text" name="Nombre" placeholder="Nombre y apellido" required>
 
-<input type="email" name="Email" placeholder="Email profesional" required>
+<input type="email" name="email" placeholder="Email profesional" required>
 
 <input type="text" name="Empresa" placeholder="Empresa">
 
@@ -642,6 +642,8 @@ Acepto que mis datos sean utilizados por STRANEXO para que me contacten en relac
 </span>
 
 </label>
+
+<div class="h-captcha" data-captcha="true" data-lang="es"></div>
 
 <button type="submit">
 
@@ -739,6 +741,8 @@ class="linkedin-link">
 </footer>
 
 <script src="../js/menu.js"></script>
+<script src="https://web3forms.com/client/script.js" async defer></script>
+<script src="../js/contact-form.js" defer></script>
 
 </body>
 </html>
